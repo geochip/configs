@@ -5,7 +5,6 @@ import subprocess
 
 from typing import List  # noqa: F401
 
-
 ### LIBQTILE ###
 
 from libqtile import bar, layout, widget, hook, extension
@@ -18,6 +17,20 @@ from libqtile.utils import guess_terminal
 
 mod = 'mod4'
 terminal = 'alacritty'
+
+
+def change_audio_volume(qtile, change: str, delta: str='5'):
+    subprocess.run(['pamixer', change, delta])
+    volume = int(subprocess.run(['pamixer', '--get-volume'], capture_output=True).stdout)
+    subprocess.run(['volnoti-show', str(volume)])
+
+def change_monitor_brightness(qtile, change: str, delta: str='5'):
+    subprocess.run(['xbacklight', change, delta])
+    brightness = float(subprocess.run(['xbacklight', '-get'], capture_output=True).stdout)
+    subprocess.run(['volnoti-show',
+                    '-s',
+                    '/usr/share/pixmaps/volnoti/display-brightness-symbolic.svg',
+                    str(brightness)])
 
 
 ### KEY BINDINGS ###
@@ -149,27 +162,27 @@ keys = [
         desc='Run dmenu'
     ),
 
-    # Audio control
+    # Sound control
     Key(
-        [mod], 'Up',
-        lazy.function(lambda x: subprocess.run(['pamixer', '-i', '10'])),
+        [], 'XF86AudioRaiseVolume',
+        lazy.function(change_audio_volume, change='-i'),
         desc='Increase volume'
     ),
     Key(
-        [mod], 'Down',
-        lazy.function(lambda x: subprocess.run(['pamixer', '-d', '10'])),
+        [], 'XF86AudioLowerVolume',
+        lazy.function(change_audio_volume, change='-d'),
         desc='Decrease volume'
     ),
 
-    # Display brightness (backlight) control
+    # Monitor brightness control
     Key(
-        [mod], 'Right',
-        lazy.function(lambda x: subprocess.run(['xbacklight', '-inc', '10'])),
+        [], 'XF86MonBrightnessUp',
+        lazy.function(change_monitor_brightness, change='-inc'),
         desc='Increase brightness'
     ),
     Key(
-        [mod], 'Left',
-        lazy.function(lambda x: subprocess.run(['xbacklight', '-dec', '10'])),
+        [], 'XF86MonBrightnessDown',
+        lazy.function(change_monitor_brightness, change='-dec'),
         desc='Decrease brightness'
     ),
 
@@ -180,6 +193,7 @@ keys = [
         desc='Next keyboard layout'
     ),
 ]
+
 
 
 ### DRAG FLOATING LAYOUTS ###
@@ -261,7 +275,7 @@ floating_layout = layout.Floating(float_rules=[
 widget_defaults = dict(
     font='JetBrainsMono',
     fontsize=16,
-    padding=4,
+    padding=8,
 )
 extension_defaults = widget_defaults.copy()
 
@@ -285,24 +299,29 @@ screens = [
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.Systray(),
-                widget.Sep(),
-                widget.Memory(),
-                widget.Sep(),
-                widget.Volume(),
-                widget.Sep(),
+                widget.Memory(
+                    background='#4b69fa',
+                    format='{MemUsed}MiB/{MemTotal}MiB',
+                ),
+                widget.Volume(
+                    background='#bd93f9',
+                ),
                 widget.Battery(
+                    background='#4b69fa',
                     format='{char} {percent:2.1%}',
                 ),
-                widget.Sep(),
                 widget.Clock(
+                    background='#bd93f9',
                     format='%Y-%m-%d %a %H:%M:%S',
                 ),
-                widget.Sep(),
                 widget.KeyboardLayout(
+                    background='#4b69fa',
                     configured_keyboards=['us', 'ru'],
                 ),
             ],
-            24,
+            32,
+            background='#282a36',
+            opacity=0.8,
         ),
     ),
 ]
