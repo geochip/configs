@@ -1,0 +1,11 @@
+# Increase volume
+"pamixer -i 5 && volnoti-show $(pamixer --get-volume)"
+   XF86AudioRaiseVolume
+
+# Decrease volume
+"pamixer -d 5 && volnoti-show $(pamixer --get-volume)"
+   XF86AudioLowerVolume
+
+# Toggle volume
+"pamixer -t; if pamixer --get-mute | grep -Fq 'false'; then volnoti-show -m; else volnoti-show $(pamixer --get-volume); fi"
+   XF86AudioMute
