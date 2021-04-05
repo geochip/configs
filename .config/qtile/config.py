@@ -19,6 +19,8 @@ mod = 'mod4'
 terminal = 'alacritty'
 
 
+### USEFUL FUNCTIONS ###
+
 def change_audio_volume(qtile, change: str, delta: str='5'):
     subprocess.run(['pamixer', change, delta])
     volume = int(subprocess.run(['pamixer', '--get-volume'], capture_output=True).stdout)
@@ -141,6 +143,7 @@ keys = [
         desc='Kill focused window'
     ),
 
+    # Qtile stuff
     Key(
         [mod, 'control'], 'r',
         lazy.restart(),
@@ -188,12 +191,18 @@ keys = [
 
     # Keyboard layout control
     Key(
-        [mod], 'space',
+        ['shift'], 'Alt_L',
         lazy.widget['keyboardlayout'].next_keyboard(),
         desc='Next keyboard layout'
     ),
-]
 
+    # Running applications
+    Key(
+        [mod], 'f',
+        lazy.spawn('firefox'),
+        desc='Run mozilla firefox browser'
+    ),
+]
 
 
 ### DRAG FLOATING LAYOUTS ###
@@ -227,12 +236,23 @@ for i in groups:
     ])
 
 
+### COLORS ###
+
+colors = {
+    'border_focus':  '#34dccc',
+    'border_normal': '#1d2330',
+    'bg_odd':        '#464299',
+    'bg_even':       '#904299',
+    'bg_bar':        '#282a36',
+}
+
+
 ### DEFAULT LAYOUT THEME ###
 
 layout_theme = dict(
     border_width=2,
-    border_focus='#34dccc',
-    border_normal='#1d2330',
+    border_focus=colors['border_focus'],
+    border_normal=colors['border_normal'],
     margin=8,
 )
 
@@ -286,42 +306,41 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.CurrentLayout(),
+                widget.CurrentLayoutIcon(),
                 widget.GroupBox(
-                    margin_y=3,
-                    margin_x=0,
-                    padding_y=5,
-                    padding_x=3,
-                    borderwidth=3,
-                    rounded=False,
-                    highlight_method='line',
+                    highlight_method='block',
+                    disable_drag=True,
                 ),
                 widget.Prompt(),
                 widget.WindowName(),
                 widget.Systray(),
                 widget.Memory(
-                    background='#4b69fa',
+                    background=colors['bg_odd'],
                     format='{MemUsed}MiB/{MemTotal}MiB',
                 ),
                 widget.Volume(
-                    background='#bd93f9',
+                    background=colors['bg_even'],
                 ),
                 widget.Battery(
-                    background='#4b69fa',
-                    format='{char} {percent:2.1%}',
+                    background=colors['bg_odd'],
+                    format='{char} {percent:2.0%}',
+                ),
+                widget.TextBox(
+                    text='\U0001f557', #clock icon
+                    background=colors['bg_even'],
                 ),
                 widget.Clock(
-                    background='#bd93f9',
-                    format='%Y-%m-%d %a %H:%M:%S',
+                    background=colors['bg_even'],
+                    format='%H:%M:%S, %A %d.%m.%Y',
                 ),
                 widget.KeyboardLayout(
-                    background='#4b69fa',
+                    background=colors['bg_odd'],
                     configured_keyboards=['us', 'ru'],
                 ),
             ],
             32,
-            background='#282a36',
-            opacity=0.8,
+            background=colors['bg_bar'],
+            opacity=0.9,
         ),
     ),
 ]
