@@ -4,19 +4,33 @@ cd paru
 makepkg -si
 
 
-### Key bindings
-sudo pacman -S xbindkeys
+### Desktop
+# Window manager
+sudo pacman -S qtile
+
+# Display manager
+sudo pacman -S lightdm lightdm-gtk-greeter
+
+# Compositor
+sudo pacman -S picom
+
+# Wallpaper manager
+sudo pacman -S nitrogen
 
 
 ### Bluetooth
 sudo pacman -S bluez bluez-utils
 
 
+### Fonts
+sudo pacman -S noto-fonts
+
+
 ### Sound
 # Mixer
-sudo pacman -S amixer
+sudo pacman -S pamixer
 
-# Volume notifications
+# Volume notifications (can be adjusted to display brightness too)
 paru -S volnoti
 
 
