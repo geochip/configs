@@ -4,6 +4,7 @@ import os
 import subprocess
 
 from typing import List  # noqa: F401
+from time import time
 
 ### LIBQTILE ###
 
@@ -16,7 +17,8 @@ from libqtile.utils import guess_terminal
 ### SPECIFIC VARIABLES ##
 
 mod = 'mod4'
-terminal = 'alacritty'
+TERMINAL = 'alacritty'
+BROWSER = 'firefox'
 
 
 ### USEFUL FUNCTIONS ###
@@ -34,6 +36,20 @@ def change_monitor_brightness(qtile, change: str, delta: str='5'):
                     '/usr/share/pixmaps/volnoti/display-brightness-symbolic.svg',
                     str(brightness)])
 
+def screenshot(save=True, copy=True):
+    def f(qtile):
+        path = os.path.expanduser('~/Pictures/screenshots/')
+        path += f'screenshot_{str(int(time() * 100))}.png'
+        shot = subprocess.run(['maim'], stdout=subprocess.PIPE)
+
+        if save:
+            with open(path, 'wb') as sc:
+                sc.write(shot.stdout)
+
+        if copy:
+            subprocess.run(['xclip', '-selection', 'clipboard', '-t',
+                            'image/png'], input=shot.stdout)
+    return f
 
 ### KEY BINDINGS ###
 
@@ -127,7 +143,7 @@ keys = [
     ),
     Key(
         [mod], 'Return',
-        lazy.spawn(terminal),
+        lazy.spawn(TERMINAL),
         desc='Launch terminal'
     ),
 
@@ -198,9 +214,19 @@ keys = [
 
     # Running applications
     Key(
-        [mod], 'f',
-        lazy.spawn('firefox'),
-        desc='Run mozilla firefox browser'
+        [mod], 'b',
+        lazy.spawn(BROWSER),
+        desc='Run browser of choice'
+    ),
+    Key(
+        [], 'Print',
+        lazy.function(screenshot()),
+        desc='Take a screenshot of the whole screen'
+    ),
+    Key(
+        ['control'], 'Print',
+        lazy.spawn('flameshot'),
+        desc='Run flameshot'
     ),
 ]
 
@@ -287,6 +313,8 @@ floating_layout = layout.Floating(float_rules=[
     Match(wm_class='ssh-askpass'),  # ssh-askpass
     Match(title='branchdialog'),  # gitk
     Match(title='pinentry'),  # GPG key password entry
+    Match(wm_class='flameshot'), # Flameshot
+    Match(wm_class='display'), # ImageMagick
 ])
 
 
@@ -294,13 +322,20 @@ floating_layout = layout.Floating(float_rules=[
 
 widget_defaults = dict(
     font='JetBrainsMono',
-    fontsize=16,
+    fontsize=15,
     padding=8,
 )
 extension_defaults = widget_defaults.copy()
 
 
 ### SCREENS ###
+
+def icon(icon_text, background):
+    return widget.TextBox(
+        background=background,
+        text=icon_text,
+    )
+
 
 screens = [
     Screen(
@@ -312,30 +347,35 @@ screens = [
                     disable_drag=True,
                 ),
                 widget.Prompt(),
-                widget.WindowName(),
+                widget.WindowName(
+                    max_chars=40,
+                ),
                 widget.Systray(),
+                widget.Spacer(
+                    length=25,
+                ),
                 widget.Memory(
                     background=colors['bg_odd'],
                     format='{MemUsed}MiB/{MemTotal}MiB',
                 ),
+                icon('\U0001f50a', colors['bg_even']),
                 widget.Volume(
                     background=colors['bg_even'],
                 ),
                 widget.Battery(
                     background=colors['bg_odd'],
+                    charge_char='\U0001f50b',
+                    discharge_char='\U0001f50b',
                     format='{char} {percent:2.0%}',
                 ),
-                widget.TextBox(
-                    text='\U0001f557', #clock icon
-                    background=colors['bg_even'],
-                ),
-                widget.Clock(
-                    background=colors['bg_even'],
-                    format='%H:%M:%S, %A %d.%m.%Y',
-                ),
                 widget.KeyboardLayout(
-                    background=colors['bg_odd'],
+                    background=colors['bg_even'],
                     configured_keyboards=['us', 'ru'],
+                ),
+                icon('\U0001f553', colors['bg_bar']),
+                widget.Clock(
+                    background=colors['bg_bar'],
+                    format='%H:%M:%S, %A %d.%m.%Y',
                 ),
             ],
             32,
