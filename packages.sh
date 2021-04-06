@@ -17,6 +17,13 @@ sudo pacman -S picom
 # Wallpaper manager
 sudo pacman -S nitrogen
 
+# Screenshots
+sudo pacman -S maim
+sudo pacman -S flameshot
+
+# CLI tool to manipulate the clipboards
+sudo pacman -S xclip
+
 
 ### Bluetooth
 sudo pacman -S bluez bluez-utils
@@ -32,5 +39,4 @@ sudo pacman -S pamixer
 
 # Volume notifications (can be adjusted to display brightness too)
 paru -S volnoti
-
 
