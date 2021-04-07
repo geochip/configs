@@ -13,6 +13,7 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
+import volume
 
 ### SPECIFIC VARIABLES ##
 
@@ -270,6 +271,7 @@ colors = {
     'bg_odd':        '#464299',
     'bg_even':       '#904299',
     'bg_bar':        '#282a36',
+    'bg_third':      '#19b085',
 }
 
 
@@ -322,7 +324,7 @@ floating_layout = layout.Floating(float_rules=[
 
 widget_defaults = dict(
     font='JetBrainsMono',
-    fontsize=15,
+    fontsize=14,
     padding=8,
 )
 extension_defaults = widget_defaults.copy()
@@ -342,39 +344,55 @@ screens = [
         top=bar.Bar(
             [
                 widget.CurrentLayoutIcon(),
+
                 widget.GroupBox(
                     highlight_method='block',
                     disable_drag=True,
                 ),
+
                 widget.Prompt(),
+
                 widget.WindowName(
                     max_chars=40,
                 ),
+
                 widget.Systray(),
+
                 widget.Spacer(
                     length=25,
                 ),
+
+                icon('\U0001f321', colors['bg_even']),
+                widget.ThermalSensor(
+                    background=colors['bg_even'],
+                ),
+
+                icon('\U0001f4be', colors['bg_odd']),
                 widget.Memory(
                     background=colors['bg_odd'],
                     format='{MemUsed}MiB/{MemTotal}MiB',
                 ),
+
                 icon('\U0001f50a', colors['bg_even']),
-                widget.Volume(
-                    background=colors['bg_even'],
+                volume.Volume(
+                    background=colors['bg_even']
                 ),
+
                 widget.Battery(
                     background=colors['bg_odd'],
-                    charge_char='\U0001f50b',
+                    charge_char='\U0001f50c',
                     discharge_char='\U0001f50b',
                     format='{char} {percent:2.0%}',
                 ),
+
                 widget.KeyboardLayout(
                     background=colors['bg_even'],
                     configured_keyboards=['us', 'ru'],
                 ),
-                icon('\U0001f553', colors['bg_bar']),
+
+                icon('\U0001f553', colors['bg_third']),
                 widget.Clock(
-                    background=colors['bg_bar'],
+                    background=colors['bg_third'],
                     format='%H:%M:%S, %A %d.%m.%Y',
                 ),
             ],
