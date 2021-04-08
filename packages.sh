@@ -37,6 +37,3 @@ sudo pacman -S noto-fonts
 # Mixer
 sudo pacman -S pamixer
 
-# Volume notifications (can be adjusted to display brightness too)
-paru -S volnoti
-
