@@ -13,6 +13,7 @@ from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
 from libqtile.utils import guess_terminal
 
+# My version of widget.Volume using `pamixer`
 import volume
 
 ### SPECIFIC VARIABLES ##
@@ -20,22 +21,20 @@ import volume
 mod = 'mod4'
 TERMINAL = 'alacritty'
 BROWSER = 'firefox'
-
+FILEMANAGER = 'pcmanfm'
+TERMFILEMANAGER = 'vifm'
 
 ### USEFUL FUNCTIONS ###
 
 def change_audio_volume(qtile, change: str, delta: str='5'):
     subprocess.run(['pamixer', change, delta])
-    volume = int(subprocess.run(['pamixer', '--get-volume'], capture_output=True).stdout)
-    subprocess.run(['volnoti-show', str(volume)])
+
+def toggle_mute_audio(qtile):
+    subprocess.run(['pamixer', '-t'])
 
 def change_monitor_brightness(qtile, change: str, delta: str='5'):
     subprocess.run(['xbacklight', change, delta])
-    brightness = float(subprocess.run(['xbacklight', '-get'], capture_output=True).stdout)
-    subprocess.run(['volnoti-show',
-                    '-s',
-                    '/usr/share/pixmaps/volnoti/display-brightness-symbolic.svg',
-                    str(brightness)])
+
 
 def screenshot(save=True, copy=True):
     def f(qtile):
@@ -51,6 +50,7 @@ def screenshot(save=True, copy=True):
             subprocess.run(['xclip', '-selection', 'clipboard', '-t',
                             'image/png'], input=shot.stdout)
     return f
+
 
 ### KEY BINDINGS ###
 
@@ -137,16 +137,11 @@ keys = [
     # Split = all windows displayed
     # Unsplit = 1 window displayed, like Max layout, but still with
     # multiple stack panes
-    Key(
-        [mod, 'shift'], 'Return',
-        lazy.layout.toggle_split(),
-        desc='Toggle between split and unsplit sides of stack'
-    ),
-    Key(
-        [mod], 'Return',
-        lazy.spawn(TERMINAL),
-        desc='Launch terminal'
-    ),
+    # Key(
+        # [mod, 'shift'], 'Return',
+        # lazy.layout.toggle_split(),
+        # desc='Toggle between split and unsplit sides of stack'
+    # ),
 
     # Toggle between different layouts as defined below
     Key(
@@ -155,9 +150,14 @@ keys = [
         desc='Toggle between layouts'
     ),
     Key(
-        [mod], 'w',
+        [mod], 'q',
         lazy.window.kill(),
         desc='Kill focused window'
+    ),
+    Key(
+        [mod], 't',
+        lazy.window.toggle_floating(),
+        desc='Put the focused window to/from floating mode'
     ),
 
     # Qtile stuff
@@ -176,11 +176,6 @@ keys = [
         lazy.spawncmd(),
         desc='Spawn a command using a prompt widget'
     ),
-    Key(
-        [mod], 'p',
-        lazy.spawn('dmenu_run -b'),
-        desc='Run dmenu'
-    ),
 
     # Sound control
     Key(
@@ -192,6 +187,11 @@ keys = [
         [], 'XF86AudioLowerVolume',
         lazy.function(change_audio_volume, change='-d'),
         desc='Decrease volume'
+    ),
+    Key(
+        [], 'XF86AudioMute',
+        lazy.function(toggle_mute_audio),
+        desc='Toggle mute audio'
     ),
 
     # Monitor brightness control
@@ -213,12 +213,7 @@ keys = [
         desc='Next keyboard layout'
     ),
 
-    # Running applications
-    Key(
-        [mod], 'b',
-        lazy.spawn(BROWSER),
-        desc='Run browser of choice'
-    ),
+    # Screenshots
     Key(
         [], 'Print',
         lazy.function(screenshot()),
@@ -228,6 +223,33 @@ keys = [
         ['control'], 'Print',
         lazy.spawn('flameshot'),
         desc='Run flameshot'
+    ),
+
+    # Running applications
+    Key(
+        [mod], 'Return',
+        lazy.spawn(TERMINAL),
+        desc='Launch terminal'
+    ),
+    Key(
+        [mod, 'shift'], 'Return',
+        lazy.spawn('dmenu_run -b'),
+        desc='Run dmenu'
+    ),
+    Key(
+        [mod], 'b',
+        lazy.spawn(BROWSER),
+        desc='Run browser of choice'
+    ),
+    Key(
+        [mod], 'g',
+        lazy.spawn(FILEMANAGER),
+        desc='Run GUI-based file manager of choice'
+    ),
+    Key(
+        [mod], 'f',
+        lazy.spawn(TERMINAL + ' -e ' + TERMFILEMANAGER),
+        desc='Run terminal-based file manager of choice'
     ),
 ]
 
@@ -338,12 +360,32 @@ def icon(icon_text, background):
         text=icon_text,
     )
 
+def arrow(foreground, background):
+    return widget.TextBox(
+        text='\uf0d9',
+        foreground=foreground,
+        background=background,
+        fontsize=64,
+        padding=-1,
+    )
+
+def lower_right_triangle(foreground, background):
+    return widget.TextBox(
+        text='\u25e2',
+        foreground=foreground,
+        background=background,
+        fontsize=64,
+        padding=0,
+    )
+
 
 screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.CurrentLayoutIcon(),
+                widget.CurrentLayoutIcon(
+                    scale=0.6
+                ),
 
                 widget.GroupBox(
                     highlight_method='block',
@@ -362,42 +404,81 @@ screens = [
                     length=25,
                 ),
 
+                arrow(
+                    foreground=colors['bg_even'],
+                    background=colors['bg_bar']
+                ),
+
                 icon('\U0001f321', colors['bg_even']),
                 widget.ThermalSensor(
                     background=colors['bg_even'],
                 ),
 
-                icon('\U0001f4be', colors['bg_odd']),
+                arrow(
+                    foreground=colors['bg_odd'],
+                    background=colors['bg_even']
+                ),
+
+                icon('\uf2db', colors['bg_odd']),
                 widget.Memory(
                     background=colors['bg_odd'],
                     format='{MemUsed}MiB/{MemTotal}MiB',
                 ),
 
-                icon('\U0001f50a', colors['bg_even']),
+                arrow(
+                    foreground=colors['bg_even'],
+                    background=colors['bg_odd']
+                ),
+
+                icon('\uf028', colors['bg_even']),
                 volume.Volume(
+                    background=colors['bg_even']
+                ),
+
+                arrow(
+                    foreground=colors['bg_odd'],
                     background=colors['bg_even']
                 ),
 
                 widget.Battery(
                     background=colors['bg_odd'],
-                    charge_char='\U0001f50c',
-                    discharge_char='\U0001f50b',
+                    charge_char='\uf583',
+                    discharge_char='\uf578',
                     format='{char} {percent:2.0%}',
+                ),
+
+                arrow(
+                    foreground=colors['bg_even'],
+                    background=colors['bg_odd']
                 ),
 
                 widget.KeyboardLayout(
                     background=colors['bg_even'],
                     configured_keyboards=['us', 'ru'],
+                    padding=0,
                 ),
 
-                icon('\U0001f553', colors['bg_third']),
+                lower_right_triangle(
+                    foreground=colors['bg_third'],
+                    background=colors['bg_even']
+                ),
+
+                icon('\uf5ef', colors['bg_third']),
                 widget.Clock(
                     background=colors['bg_third'],
                     format='%H:%M:%S, %A %d.%m.%Y',
+                    padding=0,
+                ),
+
+                widget.Sep(
+                    foreground=colors['bg_third'],
+                    background=colors['bg_third'],
+                    linewidth=10,
                 ),
             ],
             32,
             background=colors['bg_bar'],
+            margin=3,
             opacity=0.9,
         ),
     ),
@@ -422,13 +503,4 @@ bring_front_click = False
 cursor_warp = False
 auto_fullscreen = True
 focus_on_window_activation = 'smart'
-
-# XXX: Gasp! We're lying here. In fact, nobody really uses or cares about this
-# string besides java UI toolkits; you can see several discussions on the
-# mailing lists, GitHub issues, and other WM documentation that suggest setting
-# this string if your java app doesn't work correctly. We may as well just lie
-# and say that we're a working one by default.
-#
-# We choose LG3D to maximize irony: it is a 3D non-reparenting WM written in
-# java that happens to be on java's whitelist.
 wmname = 'LG3D'
