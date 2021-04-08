@@ -16,6 +16,15 @@ from libqtile.utils import guess_terminal
 # My version of widget.Volume using `pamixer`
 import volume
 
+
+### AUTOSTART ###
+
+@hook.subscribe.startup_once
+def autostart():
+    script = os.path.expanduser('~/.config/qtile/autostart.sh')
+    subprocess.run(['sh', script])
+
+
 ### SPECIFIC VARIABLES ##
 
 mod = 'mod4'
@@ -23,6 +32,237 @@ TERMINAL = 'alacritty'
 BROWSER = 'firefox'
 FILEMANAGER = 'pcmanfm'
 TERMFILEMANAGER = 'vifm'
+
+
+### COLORS ###
+
+colors = {
+    'border_focus':  '#34dccc',
+    'border_normal': '#1d2330',
+    'bg_odd':        '#464299',
+    'bg_even':       '#904299',
+    'bg_bar':        '#282a36',
+    'bg_third':      '#19b085',
+}
+
+
+### GROUPS ###
+
+# Needed for groups, the rest is at the end of the config
+keys = []
+
+groups = [Group(i) for i in '123456789']
+
+for i in groups:
+    keys.extend([
+        Key(
+            [mod], i.name,
+            lazy.group[i.name].toscreen(),
+            desc='Switch to group {}'.format(i.name)
+        ),
+        Key(
+            [mod, 'shift'], i.name,
+            lazy.window.togroup(i.name),
+            desc='Move focused window to group {}'.format(i.name)
+        ),
+    ])
+
+
+### DEFAULT LAYOUT THEME ###
+
+layout_theme = dict(
+    border_width=2,
+    border_focus=colors['border_focus'],
+    border_normal=colors['border_normal'],
+    margin=8,
+)
+
+
+### LAYOUTS ###
+
+layouts = [
+    layout.Columns(
+        **layout_theme,
+        border_on_single=True,
+    ),
+    layout.Max(),
+    # Try more layouts by unleashing below layouts.
+    # layout.Stack(num_stacks=2),
+    # layout.Bsp(),
+    # layout.Matrix(),
+    # layout.MonadTall(),
+    # layout.MonadWide(),
+    # layout.RatioTile(),
+    # layout.Tile(),
+    # layout.TreeTab(),
+    # layout.VerticalTile(),
+    # layout.Zoomy(),
+]
+
+floating_layout = layout.Floating(float_rules=[
+    # Run the utility of `xprop` to see the wm class and name of an X client.
+    *layout.Floating.default_float_rules,
+    Match(wm_class='confirmreset'),  # gitk
+    Match(wm_class='makebranch'),  # gitk
+    Match(wm_class='maketag'),  # gitk
+    Match(wm_class='ssh-askpass'),  # ssh-askpass
+    Match(title='branchdialog'),  # gitk
+    Match(title='pinentry'),  # GPG key password entry
+    Match(wm_class='flameshot'), # Flameshot
+    Match(wm_class='display'), # ImageMagick
+])
+
+
+### DEFAULT WIDGET SETTINGS ###
+
+widget_defaults = dict(
+    font='JetBrainsMono',
+    fontsize=14,
+    padding=8,
+)
+extension_defaults = widget_defaults.copy()
+
+
+### SCREENS ###
+
+def icon(icon_text, background):
+    return widget.TextBox(
+        background=background,
+        text=icon_text,
+        padding=0,
+    )
+
+def arrow(foreground, background):
+    return widget.TextBox(
+        text='\uf0d9',
+        foreground=foreground,
+        background=background,
+        fontsize=64,
+        padding=-1,
+    )
+
+def lower_right_triangle(foreground, background):
+    return widget.TextBox(
+        text='\u25e2',
+        foreground=foreground,
+        background=background,
+        fontsize=64,
+        padding=0,
+    )
+
+
+screens = [
+    Screen(
+        top=bar.Bar(
+            [
+                widget.CurrentLayoutIcon(
+                    scale=0.6
+                ),
+
+                widget.GroupBox(
+                    highlight_method='block',
+                    disable_drag=True,
+                ),
+
+                widget.Prompt(),
+
+                widget.WindowName(
+                    max_chars=40,
+                ),
+
+                widget.Systray(),
+
+                widget.Spacer(
+                    length=25,
+                ),
+
+                arrow(
+                    foreground=colors['bg_even'],
+                    background=colors['bg_bar']
+                ),
+
+                icon('\U0001f321', colors['bg_even']),
+                widget.ThermalSensor(
+                    background=colors['bg_even'],
+                ),
+
+                arrow(
+                    foreground=colors['bg_odd'],
+                    background=colors['bg_even']
+                ),
+
+                icon('\uf2db', colors['bg_odd']),
+                widget.Memory(
+                    background=colors['bg_odd'],
+                    format='{MemUsed}MiB/{MemTotal}MiB',
+                ),
+
+                arrow(
+                    foreground=colors['bg_even'],
+                    background=colors['bg_odd']
+                ),
+
+                icon('\uf028', colors['bg_even']),
+                volume.Volume(
+                    background=colors['bg_even']
+                ),
+
+                arrow(
+                    foreground=colors['bg_odd'],
+                    background=colors['bg_even']
+                ),
+
+                widget.Battery(
+                    background=colors['bg_odd'],
+                    charge_char='\ufaf0',
+                    discharge_char='\uf578',
+                    format='{char} {percent:2.0%}',
+                    notify_below=0.15,
+                ),
+
+                arrow(
+                    foreground=colors['bg_even'],
+                    background=colors['bg_odd']
+                ),
+
+                icon('\uf11c', colors['bg_even']),
+                widget.KeyboardLayout(
+                    background=colors['bg_even'],
+                    configured_keyboards=['us', 'ru'],
+                ),
+
+                lower_right_triangle(
+                    foreground=colors['bg_third'],
+                    background=colors['bg_even']
+                ),
+
+                icon('\uf5ef', colors['bg_third']),
+                widget.Clock(
+                    background=colors['bg_third'],
+                    format='%H:%M:%S, %A %d.%m.%Y',
+                ),
+            ],
+            32,
+            background=colors['bg_bar'],
+            margin=3,
+            opacity=0.9,
+        ),
+    ),
+]
+
+
+### QTILE'S VARIABLES ###
+
+dgroups_key_binder = None
+dgroups_app_rules = []  # type: List
+main = None  # WARNING: this is deprecated and will be removed soon
+follow_mouse_focus = False
+bring_front_click = False
+cursor_warp = False
+auto_fullscreen = True
+focus_on_window_activation = 'smart'
+wmname = 'LG3D'
+
 
 ### USEFUL FUNCTIONS ###
 
@@ -54,7 +294,7 @@ def screenshot(save=True, copy=True):
 
 ### KEY BINDINGS ###
 
-keys = [
+keys.extend([
     # Switch between windows
     Key(
         [mod], 'h',
@@ -251,7 +491,7 @@ keys = [
         lazy.spawn(TERMINAL + ' -e ' + TERMFILEMANAGER),
         desc='Run terminal-based file manager of choice'
     ),
-]
+])
 
 
 ### DRAG FLOATING LAYOUTS ###
@@ -265,242 +505,3 @@ mouse = [
 ]
 
 
-### GROUPS ###
-
-groups = [Group(i) for i in '123456789']
-
-for i in groups:
-    keys.extend([
-        # mod1 + letter of group = switch to group
-        Key([mod], i.name, lazy.group[i.name].toscreen(),
-            desc='Switch to group {}'.format(i.name)),
-
-        # mod1 + shift + letter of group = switch to & move focused window to group
-        # Key([mod, 'shift'], i.name, lazy.window.togroup(i.name, switch_group=True),
-        #     desc='Switch to & move focused window to group {}'.format(i.name)),
-        # Or, use below if you prefer not to switch to that group.
-        # # mod1 + shift + letter of group = move focused window to group
-        Key([mod, 'shift'], i.name, lazy.window.togroup(i.name),
-            desc='move focused window to group {}'.format(i.name)),
-    ])
-
-
-### COLORS ###
-
-colors = {
-    'border_focus':  '#34dccc',
-    'border_normal': '#1d2330',
-    'bg_odd':        '#464299',
-    'bg_even':       '#904299',
-    'bg_bar':        '#282a36',
-    'bg_third':      '#19b085',
-}
-
-
-### DEFAULT LAYOUT THEME ###
-
-layout_theme = dict(
-    border_width=2,
-    border_focus=colors['border_focus'],
-    border_normal=colors['border_normal'],
-    margin=8,
-)
-
-
-### LAYOUTS ###
-
-layouts = [
-    layout.Columns(
-        **layout_theme,
-        border_on_single=True,
-    ),
-    layout.Max(),
-    # Try more layouts by unleashing below layouts.
-    # layout.Stack(num_stacks=2),
-    # layout.Bsp(),
-    # layout.Matrix(),
-    # layout.MonadTall(),
-    # layout.MonadWide(),
-    # layout.RatioTile(),
-    # layout.Tile(),
-    # layout.TreeTab(),
-    # layout.VerticalTile(),
-    # layout.Zoomy(),
-]
-
-floating_layout = layout.Floating(float_rules=[
-    # Run the utility of `xprop` to see the wm class and name of an X client.
-    *layout.Floating.default_float_rules,
-    Match(wm_class='confirmreset'),  # gitk
-    Match(wm_class='makebranch'),  # gitk
-    Match(wm_class='maketag'),  # gitk
-    Match(wm_class='ssh-askpass'),  # ssh-askpass
-    Match(title='branchdialog'),  # gitk
-    Match(title='pinentry'),  # GPG key password entry
-    Match(wm_class='flameshot'), # Flameshot
-    Match(wm_class='display'), # ImageMagick
-])
-
-
-### DEFAULT WIDGET SETTINGS ###
-
-widget_defaults = dict(
-    font='JetBrainsMono',
-    fontsize=14,
-    padding=8,
-)
-extension_defaults = widget_defaults.copy()
-
-
-### SCREENS ###
-
-def icon(icon_text, background):
-    return widget.TextBox(
-        background=background,
-        text=icon_text,
-    )
-
-def arrow(foreground, background):
-    return widget.TextBox(
-        text='\uf0d9',
-        foreground=foreground,
-        background=background,
-        fontsize=64,
-        padding=-1,
-    )
-
-def lower_right_triangle(foreground, background):
-    return widget.TextBox(
-        text='\u25e2',
-        foreground=foreground,
-        background=background,
-        fontsize=64,
-        padding=0,
-    )
-
-
-screens = [
-    Screen(
-        top=bar.Bar(
-            [
-                widget.CurrentLayoutIcon(
-                    scale=0.6
-                ),
-
-                widget.GroupBox(
-                    highlight_method='block',
-                    disable_drag=True,
-                ),
-
-                widget.Prompt(),
-
-                widget.WindowName(
-                    max_chars=40,
-                ),
-
-                widget.Systray(),
-
-                widget.Spacer(
-                    length=25,
-                ),
-
-                arrow(
-                    foreground=colors['bg_even'],
-                    background=colors['bg_bar']
-                ),
-
-                icon('\U0001f321', colors['bg_even']),
-                widget.ThermalSensor(
-                    background=colors['bg_even'],
-                ),
-
-                arrow(
-                    foreground=colors['bg_odd'],
-                    background=colors['bg_even']
-                ),
-
-                icon('\uf2db', colors['bg_odd']),
-                widget.Memory(
-                    background=colors['bg_odd'],
-                    format='{MemUsed}MiB/{MemTotal}MiB',
-                ),
-
-                arrow(
-                    foreground=colors['bg_even'],
-                    background=colors['bg_odd']
-                ),
-
-                icon('\uf028', colors['bg_even']),
-                volume.Volume(
-                    background=colors['bg_even']
-                ),
-
-                arrow(
-                    foreground=colors['bg_odd'],
-                    background=colors['bg_even']
-                ),
-
-                widget.Battery(
-                    background=colors['bg_odd'],
-                    charge_char='\uf583',
-                    discharge_char='\uf578',
-                    format='{char} {percent:2.0%}',
-                ),
-
-                arrow(
-                    foreground=colors['bg_even'],
-                    background=colors['bg_odd']
-                ),
-
-                widget.KeyboardLayout(
-                    background=colors['bg_even'],
-                    configured_keyboards=['us', 'ru'],
-                    padding=0,
-                ),
-
-                lower_right_triangle(
-                    foreground=colors['bg_third'],
-                    background=colors['bg_even']
-                ),
-
-                icon('\uf5ef', colors['bg_third']),
-                widget.Clock(
-                    background=colors['bg_third'],
-                    format='%H:%M:%S, %A %d.%m.%Y',
-                    padding=0,
-                ),
-
-                widget.Sep(
-                    foreground=colors['bg_third'],
-                    background=colors['bg_third'],
-                    linewidth=10,
-                ),
-            ],
-            32,
-            background=colors['bg_bar'],
-            margin=3,
-            opacity=0.9,
-        ),
-    ),
-]
-
-
-### AUTOSTART ###
-
-@hook.subscribe.startup_once
-def autostart():
-    script = os.path.expanduser('~/.config/qtile/autostart.sh')
-    subprocess.run(['sh', script])
-
-
-### VARIABLES ###
-
-dgroups_key_binder = None
-dgroups_app_rules = []  # type: List
-main = None  # WARNING: this is deprecated and will be removed soon
-follow_mouse_focus = True
-bring_front_click = False
-cursor_warp = False
-auto_fullscreen = True
-focus_on_window_activation = 'smart'
-wmname = 'LG3D'
