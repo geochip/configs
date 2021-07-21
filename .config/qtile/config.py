@@ -195,7 +195,7 @@ screens = [
                 icon('\uf2db', colors['bg_odd']),
                 widget.Memory(
                     background=colors['bg_odd'],
-                    format='{MemUsed}MiB/{MemTotal}MiB',
+                    format='{MemUsed: .0f}MiB/{MemTotal: .0f}MiB',
                 ),
 
                 arrow(
