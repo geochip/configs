@@ -1,100 +1,138 @@
-" Download vim-plug for neovim:
-" sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-"       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-"
-"" Plugins
-"" Specify a directory for plugins
-"" - Avoid using standard Vim directory names like 'plugin'
-
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'scrooloose/nerdtree', { 'on':  'NERDTreeToggle' }
-Plug 'kien/ctrlp.vim'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'sheerun/vim-polyglot'
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
 Plug 'preservim/nerdcommenter'
 Plug 'jiangmiao/auto-pairs'
-Plug 'morhetz/gruvbox'
-Plug 'danilo-augusto/vim-afterglow'
-Plug 'sheerun/vim-polyglot'
+
 Plug 'vim-airline/vim-airline'
+Plug 'gruvbox-community/gruvbox'
 
 call plug#end()
 
 
-let g:afterglow_inherit_background=1
-
-
 syntax enable
-"" 24-bit colours please
 set termguicolors
-colorscheme afterglow
+colorscheme gruvbox
 set background=dark
-set showmatch
+highlight Normal guibg=None
 
-
-"" Show status line
-set laststatus=2
-"" Customise our current location information
-"" set statusline=%f\ %=Line\ %l/%L\ Col\ %c\ (%p%%)
-"" Absolute numbers on the current line
-set number
-"" Relative line numbers
-set relativenumber
-"" Highlight current line
-set cursorline
-"" Show invisibles
-set list
-set listchars=trail:·,tab:»·,extends:>,precedes:<
-
-
-"" 4 spaces insted of Tab
-set tabstop=4
+set tabstop=4 softtabstop=4
 set shiftwidth=4
 set expandtab
-set smarttab
-"" Show file title in terminal tab
-set title
-"" Keep more lines above the cursor
-set scrolloff=8
-"" Give more space for displaying messages.
-set cmdheight=2
-"" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-"" delays and poor user experience.
-set updatetime=2000
-""  When lines longer than the width of the window
-""  will not wrap and displaying continues on the next line
-set nowrap
-"" Don't create swap files
-set noswapfile
-"" Specify undo directory...
-set undodir=~/.config/nvim/undodir
-"" ...use per every single file
-set undofile
+set smartindent
 
-
-"" Keep results highlighted after searching...
+" set statusline=%f\ %=Line\ %l/%L\ Col\ %c\ (%p%%)
+set laststatus=2
+set number
+set relativenumber
 set hlsearch
-"" ...and highlight as we type
 set incsearch
+set cursorline
+set hidden
+set guicursor=
+set title
+set scrolloff=8
+set cmdheight=2
+set nowrap
+set noswapfile
+set nobackup
+set undodir=~/.config/nvim/undodir
+set undofile
+set list
+set listchars=trail:·,tab:»·,extends:>,precedes:<
+set signcolumn=yes
 
 
+let g:mapleader=' '
 
-"" Comma is a leader-key now
-let g:mapleader=','
-
-"" For easy motions among windows
-noremap <C-l> :wincmd l<CR>
-noremap <C-h> :wincmd h<CR>
-noremap <C-j> :wincmd j<CR>
-noremap <C-k> :wincmd k<CR>
-
-"" Quick save and quit
 nnoremap <Leader>w :w<CR>
-noremap <Leader>q :q<CR>
+nnoremap <Leader>q :q<CR>
 
-"" Hide highlighted results after searching
-noremap <Leader>u :nohlsearch<CR>
+nnoremap <Leader>u :nohlsearch<CR>
+
+map <C-_> <Plug>NERDCommenterToggle
+
+nnoremap <leader>ff <cmd>Telescope find_files<cr>
+nnoremap <leader>fg <cmd>Telescope live_grep<cr>
+nnoremap <leader>fb <cmd>Telescope buffers<cr>
+nnoremap <leader>fh <cmd>Telescope help_tags<cr>
+
+let g:AutoPairsShortcutBackInsert= ''
 
 
-"" NERDTree
-map <C-n> :NERDTreeToggle<CR>
+"" Coc.nvim
+
+set nowritebackup
+set updatetime=300
+set shortmess+=c
+
+
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+
+augroup MY_GROUP
+    autocmd!
+    " Setup formatexpr specified filetype(s).
+    autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+    " Update signature help on jump placeholder
+    autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+    " Highlight the symbol and its references when holding the cursor.
+    autocmd CursorHold * silent call CocActionAsync('highlight')
+augroup end
+
+" Symbol renaming.
+nmap <leader>rn <Plug>(coc-rename)
+
+" Formatting selected code.
+xmap <leader>f  <Plug>(coc-format-selected)
+nmap <leader>f  <Plug>(coc-format-selected)
+
+" Remap <C-f> and <C-b> for scroll float windows/popups.
+if has('nvim-0.4.0') || has('patch-8.2.0750')
+  nnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  nnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+  inoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+  inoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+  vnoremap <silent><nowait><expr> <C-f> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+  vnoremap <silent><nowait><expr> <C-b> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+endif
 

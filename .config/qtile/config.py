@@ -8,10 +8,9 @@ from time import time
 
 ### LIBQTILE ###
 
-from libqtile import bar, layout, widget, hook, extension
+from libqtile import bar, layout, widget, hook
 from libqtile.config import Click, Drag, Group, Key, Match, Screen
 from libqtile.lazy import lazy
-from libqtile.utils import guess_terminal
 
 # My version of widget.Volume using `pamixer`
 import volume
@@ -29,9 +28,9 @@ def autostart():
 
 mod = 'mod4'
 TERMINAL = 'alacritty'
-BROWSER = 'firefox'
+BROWSER = 'brave'
 FILEMANAGER = 'pcmanfm'
-TERMFILEMANAGER = 'vifm'
+# TERMFILEMANAGER = 'vifm'
 
 
 ### COLORS ###
@@ -110,6 +109,7 @@ floating_layout = layout.Floating(float_rules=[
     Match(title='pinentry'),  # GPG key password entry
     Match(wm_class='flameshot'), # Flameshot
     Match(wm_class='display'), # ImageMagick
+    Match(role='pop-up'),
 ])
 
 
@@ -184,6 +184,7 @@ screens = [
                 icon('\U0001f321', colors['bg_even']),
                 widget.ThermalSensor(
                     background=colors['bg_even'],
+                    threshold=80,
                 ),
 
                 arrow(
@@ -217,7 +218,8 @@ screens = [
                     charge_char='\ufaf0',
                     discharge_char='\uf578',
                     format='{char} {percent:2.0%}',
-                    notify_below=0.15,
+                    low_percentage=0.15,
+                    notify_below=15,
                 ),
 
                 arrow(
@@ -239,7 +241,7 @@ screens = [
                 icon('\uf5ef', colors['bg_third']),
                 widget.Clock(
                     background=colors['bg_third'],
-                    format='%H:%M:%S, %A %d.%m.%Y',
+                    format='%I:%M:%S %p, %A %d.%m.%Y',
                 ),
             ],
             32,
@@ -486,11 +488,11 @@ keys.extend([
         lazy.spawn(FILEMANAGER),
         desc='Run GUI-based file manager of choice'
     ),
-    Key(
-        [mod], 'f',
-        lazy.spawn(TERMINAL + ' -e ' + TERMFILEMANAGER),
-        desc='Run terminal-based file manager of choice'
-    ),
+    # Key(
+        # [mod], 'f',
+        # lazy.spawn(TERMINAL + ' -e ' + TERMFILEMANAGER),
+        # desc='Run terminal-based file manager of choice'
+    # ),
 ])
 
 
@@ -503,5 +505,4 @@ mouse = [
          start=lazy.window.get_size()),
     Click([mod], 'Button2', lazy.window.bring_to_front())
 ]
-
 
