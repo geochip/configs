@@ -30,7 +30,7 @@ mod = 'mod4'
 TERMINAL = 'alacritty'
 BROWSER = 'brave'
 FILEMANAGER = 'pcmanfm'
-# TERMFILEMANAGER = 'vifm'
+TERMFILEMANAGER = 'vifm'
 
 
 ### COLORS ###
@@ -219,7 +219,7 @@ screens = [
                     discharge_char='\uf578',
                     format='{char} {percent:2.0%}',
                     low_percentage=0.15,
-                    notify_below=15,
+                    notify_below=0.15,
                 ),
 
                 arrow(
@@ -475,8 +475,8 @@ keys.extend([
     ),
     Key(
         [mod, 'shift'], 'Return',
-        lazy.spawn('dmenu_run -b'),
-        desc='Run dmenu'
+        lazy.spawn('rofi -show run'),
+        desc='Run rofi'
     ),
     Key(
         [mod], 'b',
@@ -488,11 +488,11 @@ keys.extend([
         lazy.spawn(FILEMANAGER),
         desc='Run GUI-based file manager of choice'
     ),
-    # Key(
-        # [mod], 'f',
-        # lazy.spawn(TERMINAL + ' -e ' + TERMFILEMANAGER),
-        # desc='Run terminal-based file manager of choice'
-    # ),
+    Key(
+        [mod], 'f',
+        lazy.spawn(TERMINAL + ' -e ' + TERMFILEMANAGER),
+        desc='Run terminal-based file manager of choice'
+    ),
 ])
 
 
