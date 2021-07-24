@@ -12,7 +12,6 @@ set expandtab
 set smartindent
 
 " set statusline=%f\ %=Line\ %l/%L\ Col\ %c\ (%p%%)
-set laststatus=2
 set number
 set relativenumber
 set hlsearch
