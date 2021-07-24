@@ -21,6 +21,7 @@ fi
 echo "Creating directories..."
 for d in ${directories[@]}; do
     mkdir -p $d
+    echo $d
 done
 echo
 
