@@ -1,8 +1,8 @@
 #!/bin/sh
 picom --xrender-sync-fence &
 nitrogen --restore &
-dunst &
 nm-applet &
+# dunst &
 # blueman-applet &
 
 script=$(realpath $0)
