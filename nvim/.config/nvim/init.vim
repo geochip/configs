@@ -53,8 +53,6 @@ let g:indentLine_showFirstIndentLevel = 1
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#tabline#enabled = 1
 
-"let g:vimspector_enable_mappings = 'HUMAN'
-
 
 let g:mapleader = ' '
 
@@ -78,31 +76,29 @@ nnoremap <leader>bd :bdelete<CR>
 
 map <C-_> <Plug>NERDCommenterToggle
 
-nnoremap <leader>m :MaximizerToggle!<CR>
 
+" Debugging
 function GotoWindow(id)
     call win_gotoid(a:id)
     MaximizerToggle
 endfunction
 
-" Debugging
+nnoremap <leader>m :MaximizerToggle!<CR>
+
 nnoremap <leader>dd :call vimspector#Launch()<CR>
 nnoremap <leader>dr :call vimspector#Reset()<CR>
-
 nnoremap <leader>dc :call GotoWindow(g:vimspector_session_windows.code)<CR>
 nnoremap <leader>dv :call GotoWindow(g:vimspector_session_windows.variables)<CR>
 nnoremap <leader>ds :call GotoWindow(g:vimspector_session_windows.stack_trace)<CR>
-
 nnoremap <leader>dj :call vimspector#StepOver()<CR>
 nnoremap <leader>dl :call vimspector#StepInto()<CR>
 nnoremap <leader>dk :call vimspector#StepOut()<CR>
 nnoremap <leader>d<space> :call vimspector#Continue()<CR>
 nnoremap <leader>d_ :call vimspector#Restart()<CR>
-
 nnoremap <leader>drc :call vimspector#RunToCursor()<CR>
 nnoremap <leader>dbp :call vimspector#ToggleBreakpoint()<CR>
-
 nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
+
 
 augroup GEOCHIP
     autocmd!
