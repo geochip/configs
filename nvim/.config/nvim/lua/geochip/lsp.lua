@@ -6,11 +6,9 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gd', ':lua vim.lsp.buf.definition()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gi', ':lua vim.lsp.buf.implementation()<CR>', opts)
   vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gr', ':lua vim.lsp.buf.references()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gh', ':lua vim.lsp.buf.hover()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gs', ':lua vim.lsp.buf.signature_help()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gn', ':lua vim.lsp.buf.rename()<CR>', opts)
-  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>gc', ':lua vim.lsp.buf.code_action()<CR>', opts)
-  vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>K', ':lua vim.lsp.buf.hover()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>sh', ':lua vim.lsp.buf.signature_help()<CR>', opts)
+  vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>rn', ':lua vim.lsp.buf.rename()<CR>', opts)
 end
 
 -- nvim-cmp supports additional completion capabilities

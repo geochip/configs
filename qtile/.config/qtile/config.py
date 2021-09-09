@@ -115,7 +115,7 @@ floating_layout = layout.Floating(float_rules=[
 ### DEFAULT WIDGET SETTINGS ###
 
 widget_defaults = dict(
-    font='JetBrainsMono Nerd Font',
+    font='Hack Nerd Font',
     fontsize=14,
     padding=8,
 )
@@ -137,7 +137,7 @@ def arrow(foreground, background):
         foreground=foreground,
         background=background,
         fontsize=64,
-        padding=-9,
+        padding=-10,
     )
 
 def lower_right_triangle(foreground, background):
@@ -146,7 +146,7 @@ def lower_right_triangle(foreground, background):
         foreground=foreground,
         background=background,
         fontsize=64,
-        padding=0,
+        padding=-1,
     )
 
 
@@ -182,7 +182,7 @@ screens = [
 
                 widget.DF(
                     background=colors['bg_odd'],
-                    format='{p}: {uf:.2f}{m}iB/{s:.2f}{m}iB',
+                    format='{p}: {uf}{m}iB/{s}{m}iB',
                     visible_on_warn=False,
                     update_interval=5,
                 ),
