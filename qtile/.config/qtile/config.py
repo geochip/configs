@@ -29,7 +29,6 @@ mod = 'mod4'
 TERMINAL = 'alacritty'
 BROWSER = 'brave'
 FILEMANAGER = 'pcmanfm'
-TERMFILEMANAGER = 'vifm'
 
 
 ### COLORS ###
@@ -182,9 +181,10 @@ screens = [
 
                 widget.DF(
                     background=colors['bg_odd'],
-                    format='{p}: {uf}{m}iB/{s}{m}iB',
+                    format='{p}: {uf:,} {m}iB / {s:,} {m}iB',
                     visible_on_warn=False,
                     update_interval=5,
+                    measure='M',
                 ),
 
                 arrow(
@@ -206,7 +206,7 @@ screens = [
                 icon('\uf2db', colors['bg_odd']),
                 widget.Memory(
                     background=colors['bg_odd'],
-                    format='{MemUsed: .0f}MiB/{MemTotal: .0f}MiB',
+                    format='{MemUsed:,.0f} MiB / {MemTotal:,.0f} MiB',
                 ),
 
                 arrow(
@@ -412,9 +412,14 @@ keys.extend([
         desc='Put the focused window to/from floating mode'
     ),
     Key(
-        [mod], 'f',
+        [mod], 's',
         lazy.window.toggle_fullscreen(),
         desc='Put the focused window to/from fullscreen mode'
+    ),
+    Key(
+        [mod], 'f',
+        lazy.hide_show_bar(),
+        desc='Hide or show the qtile bar'
     ),
 
     # Qtile stuff
@@ -503,6 +508,69 @@ keys.extend([
         lazy.spawn(FILEMANAGER),
         desc='Run GUI-based file manager of choice'
     ),
+])
+
+
+def show_keys(keys):
+  """
+  print current keybindings in a pretty way for a rofi/dmenu window.
+  """
+  key_help = ''
+  keys_ignored = (
+      'XF86AudioMute',
+      'XF86AudioLowerVolume',
+      'XF86AudioRaiseVolume',
+      'XF86AudioPlay',
+      'XF86AudioNext',
+      'XF86AudioPrev',
+      'XF86AudioStop',
+      'XF86MonBrightnessUp',
+      'XF86MonBrightnessDown',
+  )
+  text_replaced = {
+      'mod4':      '[S]',
+      'control':   '[Ctrl]',
+      'mod1':      '[Alt]',
+      'shift':     '[Shift]',
+      'less':      '<',
+      'ampersand': '&',
+      'Escape':    'Esc',
+      'Return':    'Enter',
+  }
+  for k in keys:
+    if k.key in keys_ignored:
+      continue
+
+    mods = ''
+    key = ''
+    desc = k.desc
+    for m in k.modifiers:
+      if m in text_replaced.keys():
+        mods += text_replaced[m] + ' + '
+      else:
+        mods += m.capitalize() + ' + '
+
+    if len(k.key) > 1:
+      if k.key in text_replaced.keys():
+        key = text_replaced[k.key]
+      else:
+        key = k.key.title()
+    else:
+      key = k.key
+
+    key_line = '{:<30} {}'.format(mods + key, desc + '\n')
+    key_help += key_line
+
+    # debug_print(key_line)  # debug only
+
+  return key_help
+
+keys.extend([
+    Key(
+        [mod], 'F1',
+        lazy.spawn("sh -c 'echo \"" + show_keys(keys) + "\" | rofi -dmenu -p Find -i -mesg \"Keyboard shortcuts\"'"),
+        desc='Print keyboard bindings'
+    )
 ])
 
 
