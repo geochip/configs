@@ -11,6 +11,11 @@ set background=dark
 set termguicolors
 highlight Normal guibg=None
 
+highlight LspDiagnosticsDefaultError guifg=red gui=bold
+highlight LspDiagnosticsDefaultWarning guifg=orange gui=bold
+highlight LspDiagnosticsDefaultInformation guifg=yellow gui=bold
+highlight LspDiagnosticsDefaultHint guifg=green gui=bold
+
 set tabstop=4
 set softtabstop=4
 set shiftwidth=4
