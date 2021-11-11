@@ -26,6 +26,7 @@ Plug 'preservim/nerdcommenter'
 
 " Git integration
 Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
 
 " Telescope fuzzy finder
 Plug 'nvim-lua/plenary.nvim'
@@ -39,6 +40,7 @@ Plug 'vim-airline/vim-airline'
 Plug 'Yggdroot/indentLine'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
+Plug 'norcalli/nvim-colorizer.lua'
 
 " Temporary commented out
 "Plug 'sheerun/vim-polyglot'
@@ -106,5 +108,6 @@ augroup GEOCHIP
 augroup END
 
 
+source $HOME/.config/nvim/plugin/sets.vim
 lua require('geochip')
 

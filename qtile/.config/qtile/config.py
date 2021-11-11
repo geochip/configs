@@ -54,7 +54,7 @@ for i in groups:
     keys.extend([
         Key(
             [mod], i.name,
-            lazy.group[i.name].toscreen(),
+            lazy.group[i.name].toscreen(toggle=False),
             desc='Switch to group {}'.format(i.name)
         ),
         Key(
@@ -78,11 +78,11 @@ layout_theme = dict(
 ### LAYOUTS ###
 
 layouts = [
+    layout.Max(),
     layout.Columns(
         **layout_theme,
         border_on_single=True,
     ),
-    layout.Max(),
     # Try more layouts by unleashing below layouts.
     # layout.Stack(num_stacks=2),
     # layout.Bsp(),
@@ -97,25 +97,28 @@ layouts = [
 ]
 
 floating_layout = layout.Floating(float_rules=[
-    # Run the utility of `xprop` to see the wm class and name of an X client.
-    *layout.Floating.default_float_rules,
-    Match(wm_class='confirmreset'),  # gitk
-    Match(wm_class='makebranch'),  # gitk
-    Match(wm_class='maketag'),  # gitk
-    Match(wm_class='ssh-askpass'),  # ssh-askpass
-    Match(title='branchdialog'),  # gitk
-    Match(title='pinentry'),  # GPG key password entry
-    Match(wm_class='flameshot'), # Flameshot
-    Match(wm_class='display'), # ImageMagick
-    Match(role='pop-up'),
-])
+        # Run the utility of `xprop` to see the wm class and name of an X client.
+        *layout.Floating.default_float_rules,
+        Match(wm_class='confirmreset'),  # gitk
+        Match(wm_class='makebranch'),  # gitk
+        Match(wm_class='maketag'),  # gitk
+        Match(wm_class='ssh-askpass'),  # ssh-askpass
+        Match(title='branchdialog'),  # gitk
+        Match(title='pinentry'),  # GPG key password entry
+        Match(wm_class='flameshot'), # Flameshot
+        Match(wm_class='display'), # ImageMagick
+        Match(role='pop-up'),
+        Match(wm_class='zoom'),
+    ],
+    border_width=0,
+)
 
 
 ### DEFAULT WIDGET SETTINGS ###
 
 widget_defaults = dict(
-    font='Hack Nerd Font',
-    fontsize=14,
+    font='Roboto Mono Nerd Font',
+    fontsize=11,
     padding=8,
 )
 extension_defaults = widget_defaults.copy()
@@ -136,7 +139,7 @@ def arrow(foreground, background):
         foreground=foreground,
         background=background,
         fontsize=64,
-        padding=-10,
+        padding=-12,
     )
 
 def lower_right_triangle(foreground, background):
@@ -230,7 +233,7 @@ screens = [
                     discharge_char='\uf578',
                     format='{char} {percent:2.0%}',
                     low_percentage=0.15,
-                    notify_below=0.15,
+                    notify_below=15,
                 ),
 
                 arrow(
@@ -242,7 +245,7 @@ screens = [
                 widget.KeyboardLayout(
                     background=colors['bg_even'],
                     configured_keyboards=['us', 'ru'],
-                    option='grp:alt_shift_toggle,ctrl:swapcaps'
+                    option='grp:alt_shift_toggle,caps:ctrl_modifier'
                 ),
 
                 lower_right_triangle(
@@ -256,7 +259,7 @@ screens = [
                     format='%I:%M:%S %p, %A %m/%d/%Y',
                 ),
             ],
-            26,
+            size=24,
             background=colors['bg_bar'],
             margin=3,
             opacity=0.9,
@@ -288,20 +291,6 @@ def toggle_mute_audio(qtile):
 
 def change_monitor_brightness(qtile, change: str, delta: str='5'):
     subprocess.run(['xbacklight', change, delta])
-
-
-def screenshot(save=True, copy=True):
-    def f(qtile):
-        options = ['screen']
-        if copy:
-            options.append('-c')
-        if save:
-            options.append('-p')
-            options.append(os.path.expanduser('~/Pictures/screenshots/'))
-
-        subprocess.run(['flameshot'] + options)
-
-    return f
 
 
 ### KEY BINDINGS ###
@@ -478,7 +467,7 @@ keys.extend([
     # Screenshots
     Key(
         [], 'Print',
-        lazy.function(screenshot()),
+        lazy.spawn('flameshot screen -c -p ' + os.path.expanduser('~/Pictures/screenshots/')),
         desc='Run flameshot and take a screenshot of the whole screen'
     ),
     Key(
@@ -512,58 +501,58 @@ keys.extend([
 
 
 def show_keys(keys):
-  """
-  print current keybindings in a pretty way for a rofi/dmenu window.
-  """
-  key_help = ''
-  keys_ignored = (
-      'XF86AudioMute',
-      'XF86AudioLowerVolume',
-      'XF86AudioRaiseVolume',
-      'XF86AudioPlay',
-      'XF86AudioNext',
-      'XF86AudioPrev',
-      'XF86AudioStop',
-      'XF86MonBrightnessUp',
-      'XF86MonBrightnessDown',
-  )
-  text_replaced = {
-      'mod4':      '[S]',
-      'control':   '[Ctrl]',
-      'mod1':      '[Alt]',
-      'shift':     '[Shift]',
-      'less':      '<',
-      'ampersand': '&',
-      'Escape':    'Esc',
-      'Return':    'Enter',
-  }
-  for k in keys:
-    if k.key in keys_ignored:
-      continue
+    """
+    print current keybindings in a pretty way for a rofi/dmenu window.
+    """
+    key_help = ''
+    keys_ignored = (
+        'XF86AudioMute',
+        'XF86AudioLowerVolume',
+        'XF86AudioRaiseVolume',
+        'XF86AudioPlay',
+        'XF86AudioNext',
+        'XF86AudioPrev',
+        'XF86AudioStop',
+        'XF86MonBrightnessUp',
+        'XF86MonBrightnessDown',
+    )
+    text_replaced = {
+        'mod4':      '[S]',
+        'control':   '[Ctrl]',
+        'mod1':      '[Alt]',
+        'shift':     '[Shift]',
+        'less':      '<',
+        'ampersand': '&',
+        'Escape':    'Esc',
+        'Return':    'Enter',
+    }
+    for k in keys:
+        if k.key in keys_ignored:
+            continue
 
-    mods = ''
-    key = ''
-    desc = k.desc
-    for m in k.modifiers:
-      if m in text_replaced.keys():
-        mods += text_replaced[m] + ' + '
-      else:
-        mods += m.capitalize() + ' + '
+        mods = ''
+        key = ''
+        desc = k.desc
+        for m in k.modifiers:
+            if m in text_replaced.keys():
+                mods += text_replaced[m] + ' + '
+            else:
+                mods += m.capitalize() + ' + '
 
-    if len(k.key) > 1:
-      if k.key in text_replaced.keys():
-        key = text_replaced[k.key]
-      else:
-        key = k.key.title()
-    else:
-      key = k.key
+        if len(k.key) > 1:
+            if k.key in text_replaced.keys():
+                key = text_replaced[k.key]
+            else:
+                key = k.key.title()
+        else:
+            key = k.key
 
-    key_line = '{:<30} {}'.format(mods + key, desc + '\n')
-    key_help += key_line
+        key_line = '{:<30} {}'.format(mods + key, desc + '\n')
+        key_help += key_line
 
-    # debug_print(key_line)  # debug only
+        # debug_print(key_line)  # debug only
 
-  return key_help
+        return key_help
 
 keys.extend([
     Key(

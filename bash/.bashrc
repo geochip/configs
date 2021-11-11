@@ -16,7 +16,9 @@ export EDITOR=nvim
 export DOTFILES=$HOME/Dev/configs/nvim/.config/nvim
 export STOW_FOLDERS="nvim,alacritty,bash,nitrogen,picom,qtile,i3,polybar,tmux"
 
-set -o vi
+# set -o vi
 
 alias luamake=/home/geochip/.cache/nvim/nlua/sumneko_lua/3rd/luamake/luamake
+
+alias ls=exa
 
