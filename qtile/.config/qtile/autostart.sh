@@ -1,5 +1,5 @@
 #!/bin/sh
-picom --xrender-sync-fence &
+picom --backend glx &
 nitrogen --restore &
 nm-applet &
 udiskie &
