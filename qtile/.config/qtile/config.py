@@ -36,10 +36,10 @@ FILEMANAGER = 'pcmanfm'
 colors = {
     'border_focus':  '#34dccc',
     'border_normal': '#1d2330',
-    'bg_odd':        '#464299',
-    'bg_even':       '#904299',
-    'bg_bar':        '#282a36',
-    'bg_third':      '#19b085',
+    'bg_odd':        '#0f4c75',
+    'bg_even':       '#3282b8',
+    'bg_bar':        '#00000000',
+    'bg_third':      '#1b262c',
 }
 
 
@@ -71,7 +71,7 @@ layout_theme = dict(
     border_width=2,
     border_focus=colors['border_focus'],
     border_normal=colors['border_normal'],
-    margin=8,
+    margin=2,
 )
 
 
@@ -133,13 +133,13 @@ def icon(icon_text, background):
         padding=8,
     )
 
-def arrow(foreground, background):
+def arrow(foreground, background, left=True):
     return widget.TextBox(
-        text='\uf0d9',
+        text=('\uf0d9' if left else '\uf0da'),
         foreground=foreground,
         background=background,
         fontsize=64,
-        padding=-12,
+        padding=-13,
     )
 
 def lower_right_triangle(foreground, background):
@@ -156,34 +156,22 @@ screens = [
     Screen(
         top=bar.Bar(
             [
-                widget.CurrentLayoutIcon(
-                    scale=0.6
-                ),
 
-                widget.GroupBox(
-                    highlight_method='block',
-                    disable_drag=True,
-                ),
-
-                widget.Prompt(),
-
-                widget.WindowName(
-                    max_chars=40,
-                ),
-
-                widget.Systray(),
-
-                widget.Spacer(
-                    length=25,
+                icon('\uf2db', colors['bg_odd']),
+                widget.Memory(
+                    foreground='#ffffff',
+                    background=colors['bg_odd'],
+                    format='{MemUsed:,.0f} MiB / {MemTotal:,.0f} MiB',
                 ),
 
                 arrow(
                     foreground=colors['bg_odd'],
-                    background=colors['bg_bar']
+                    background=colors['bg_even'],
+                    left=False
                 ),
 
                 widget.DF(
-                    background=colors['bg_odd'],
+                    background=colors['bg_even'],
                     format='{p}: {uf:,} {m}iB / {s:,} {m}iB',
                     visible_on_warn=False,
                     update_interval=5,
@@ -192,29 +180,40 @@ screens = [
 
                 arrow(
                     foreground=colors['bg_even'],
-                    background=colors['bg_odd']
+                    background=colors['bg_bar'],
+                    left=False
                 ),
 
-                icon('\U0001f321', colors['bg_even']),
-                widget.ThermalSensor(
-                    background=colors['bg_even'],
-                    threshold=80,
+                widget.Spacer(),
+
+                widget.CurrentLayoutIcon(
+                    scale=0.6,
+                    background=colors['bg_third'],
                 ),
 
-                arrow(
-                    foreground=colors['bg_odd'],
-                    background=colors['bg_even']
+                widget.GroupBox(
+                    highlight_method='block',
+                    disable_drag=True,
+                    background=colors['bg_third'],
                 ),
 
-                icon('\uf2db', colors['bg_odd']),
-                widget.Memory(
-                    background=colors['bg_odd'],
-                    format='{MemUsed:,.0f} MiB / {MemTotal:,.0f} MiB',
+                widget.Prompt(),
+
+                # widget.WindowName(
+                    # max_chars=40,
+                # ),
+
+                widget.Spacer(),
+
+                widget.Systray(),
+
+                widget.Spacer(
+                    length=15,
                 ),
 
                 arrow(
                     foreground=colors['bg_even'],
-                    background=colors['bg_odd']
+                    background=colors['bg_bar']
                 ),
 
                 icon('\uf028', colors['bg_even']),
@@ -248,21 +247,20 @@ screens = [
                     option='grp:alt_shift_toggle,caps:ctrl_modifier'
                 ),
 
-                lower_right_triangle(
-                    foreground=colors['bg_third'],
+                arrow(
+                    foreground=colors['bg_odd'],
                     background=colors['bg_even']
                 ),
 
-                icon('\uf5ef', colors['bg_third']),
+                icon('\uf5ef', colors['bg_odd']),
                 widget.Clock(
-                    background=colors['bg_third'],
+                    background=colors['bg_odd'],
                     format='%I:%M:%S %p, %A %m/%d/%Y',
                 ),
             ],
             size=24,
             background=colors['bg_bar'],
             margin=3,
-            opacity=0.9,
         ),
     ),
 ]
