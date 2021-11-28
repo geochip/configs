@@ -199,10 +199,6 @@ screens = [
 
                 widget.Prompt(),
 
-                # widget.WindowName(
-                    # max_chars=40,
-                # ),
-
                 widget.Spacer(),
 
                 widget.Systray(),
@@ -465,13 +461,20 @@ keys.extend([
     # Screenshots
     Key(
         [], 'Print',
-        lazy.spawn('flameshot screen -c -p ' + os.path.expanduser('~/Pictures/screenshots/')),
-        desc='Run flameshot and take a screenshot of the whole screen'
+        # lazy.spawn('flameshot screen -c -p ' + os.path.expanduser('~/Pictures/screenshots/')),
+        lazy.spawn('ksnip -m'),
+        desc='Run screenshot utility and take a screenshot of the whole screen'
     ),
     Key(
         ['control'], 'Print',
-        lazy.spawn('flameshot gui'),
-        desc='Run flameshot and take a screenshot of a region of the screen'
+        # lazy.spawn('flameshot gui'),
+        lazy.spawn('ksnip -r'),
+        desc='Run screenshot utility and take a screenshot of a region of the screen'
+    ),
+    Key(
+        ['shift'], 'Print',
+        lazy.spawn('ksnip -a'),
+        desc='Run screenshot utility and take a screenshot of the active window'
     ),
 
     # Running applications
