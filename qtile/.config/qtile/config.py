@@ -36,6 +36,7 @@ FILEMANAGER = 'pcmanfm'
 colors = {
     'border_focus':  '#34dccc',
     'border_normal': '#1d2330',
+    'border_focus_floating':  '#3282b8',
     'bg_odd':        '#0f4c75',
     'bg_even':       '#3282b8',
     'bg_bar':        '#00000000',
@@ -109,8 +110,11 @@ floating_layout = layout.Floating(float_rules=[
         Match(wm_class='display'), # ImageMagick
         Match(role='pop-up'),
         Match(wm_class='zoom'),
+        Match(wm_class='conky-semi'),
     ],
-    border_width=0,
+    border_width=2,
+    border_focus=colors['bg_even'],
+    border_normal=colors['border_normal'],
 )
 
 
@@ -267,7 +271,7 @@ screens = [
 dgroups_key_binder = None
 dgroups_app_rules = []  # type: List
 main = None  # WARNING: this is deprecated and will be removed soon
-follow_mouse_focus = False
+follow_mouse_focus = True
 bring_front_click = False
 cursor_warp = False
 auto_fullscreen = True
@@ -395,7 +399,7 @@ keys.extend([
         desc='Put the focused window to/from floating mode'
     ),
     Key(
-        [mod], 's',
+        [mod], 'm',
         lazy.window.toggle_fullscreen(),
         desc='Put the focused window to/from fullscreen mode'
     ),
