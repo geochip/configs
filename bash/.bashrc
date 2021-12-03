@@ -14,7 +14,7 @@ export PS1
 export PATH="$PATH:$HOME/bin:$HOME/.local/bin"
 export EDITOR=nvim
 export DOTFILES=$HOME/Dev/configs/nvim/.config/nvim
-export STOW_FOLDERS="nvim,alacritty,bash,nitrogen,picom,qtile,i3,awesome,polybar,tmux,conky"
+export STOW_FOLDERS="nvim,alacritty,bash,nitrogen,picom,qtile,i3,i3status,awesome,polybar,tmux,conky"
 
 # set -o vi
 
