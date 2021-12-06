@@ -52,7 +52,7 @@ font-2 = siji:pixelsize=10;1
 
 modules-left = i3
 modules-center = 
-modules-right = filesystem memory pulseaudio battery xkeyboard date
+modules-right = updates-pacman-aurhelper filesystem memory pulseaudio battery xkeyboard date
 
 tray-position = center
 tray-padding = 2
@@ -93,6 +93,11 @@ label-visible-padding = ${self.label-focused-padding}
 label-urgent = %index%
 label-urgent-background = ${colors.alert}
 label-urgent-padding = 2
+
+[module/updates-pacman-aurhelper]
+type = custom/script
+exec = ~/.config/polybar/scripts/updates-pacman-aurhelper.sh
+interval = 600
 
 [module/filesystem]
 type = internal/fs
