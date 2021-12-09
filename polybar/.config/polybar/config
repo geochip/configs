@@ -52,7 +52,7 @@ font-2 = siji:pixelsize=10;1
 
 modules-left = i3
 modules-center = 
-modules-right = updates-pacman-aurhelper filesystem memory pulseaudio battery xkeyboard date
+modules-right = updates-pacman-aurhelper filesystem memory pulseaudio battery-notify xkeyboard date
 
 tray-position = center
 tray-padding = 2
@@ -120,41 +120,28 @@ label = %mb_used%/%mb_total%
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume = <label-volume> <bar-volume>
-label-volume = VOL %percentage%%
+format-volume = <label-volume>
+label-volume = "VOL: %percentage%%"
 label-volume-foreground = ${root.foreground}
 
 label-muted = muted
 label-muted-foreground = ${colors.foreground-alt}
 
-bar-volume-width = 10
-bar-volume-foreground-0 = #55aa55
-bar-volume-foreground-1 = #55aa55
-bar-volume-foreground-2 = #55aa55
-bar-volume-foreground-3 = #55aa55
-bar-volume-foreground-4 = #55aa55
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
-bar-volume-gradient = false
-bar-volume-indicator = |
-bar-volume-indicator-font = 2
-bar-volume-fill = ─
-bar-volume-fill-font = 2
-bar-volume-empty = ─
-bar-volume-empty-font = 2
-bar-volume-empty-foreground = ${colors.foreground-alt}
+[module/battery-notify]
+type = custom/script
+exec = ~/.config/polybar/scripts/battery-notify.sh
 
-[module/battery]
-type = internal/battery
-battery = BAT1
-adapter = ACAD
-full-at = 98
+;[module/battery]
+;type = internal/battery
+;battery = BAT1
+;adapter = ACAD
+;full-at = 100
 
-format-charging = <label-charging>
-format-charging-underline = #2aff31 
+;format-charging = <label-charging>
+;format-charging-underline = #2aff31 
 
-format-discharging = <label-discharging>
-format-discharging-underline = #ffb52a
+;format-discharging = <label-discharging>
+;format-discharging-underline = #ffb52a
 
 [module/xkeyboard]
 type = internal/xkeyboard
