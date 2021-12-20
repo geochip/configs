@@ -24,5 +24,5 @@ for _, lsp in ipairs(servers) do
   })
 end
 
-require('nlua.lsp.nvim').setup(require('lspconfig'), {})
+nvim_lsp.sumneko_lua.setup({})
 

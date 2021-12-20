@@ -14,8 +14,8 @@ Plug 'hrsh7th/nvim-cmp'
 Plug 'tjdevries/nlua.nvim'
 
 " Debugging
-Plug 'puremourning/vimspector'
-Plug 'szw/vim-maximizer'
+" Plug 'puremourning/vimspector'
+" Plug 'szw/vim-maximizer'
 
 " Better syntax highlighting
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
