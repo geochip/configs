@@ -20,3 +20,8 @@ export STOW_FOLDERS="nvim,alacritty,bash,nitrogen,picom,qtile,i3,i3status,awesom
 
 alias ls=exa
 
+
+# Quartus stuff
+export QSYS_ROOTDIR="/home/geochip/Applications/intelFPGA_lite/17.1/quartus/sopc_builder/bin"
+export PATH="$PATH:$HOME/Applications/intelFPGA_lite/17.1/quartus/bin"
+

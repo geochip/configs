@@ -325,7 +325,20 @@ globalkeys = gears.table.join(
 
     awful.key({ modkey }, "b",
               function() awful.spawn("brave") end,
-              { description = "Run brave browser", group = "applications" })
+              { description = "Run brave browser", group = "applications" }),
+
+    awful.key({ }, "Print",
+              function() awful.spawn("ksnip -m") end,
+              { description = "Run screenshot utility and take a screenshot of the whole screen", group = "applications" }),
+
+    awful.key({ "Control" }, "Print",
+              function() awful.spawn("ksnip -r") end,
+              { description = "Run screenshot utility and take a screenshot of a region of the screen", group = "applications" }),
+
+    awful.key({ "Shift" }, "Print",
+              function() awful.spawn("ksnip -a") end,
+              { description = "Run screenshot utility and take a screenshot of the active window", group = "applications" })
+
 )
 
 clientkeys = gears.table.join(

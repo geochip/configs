@@ -34,13 +34,13 @@ FILEMANAGER = 'pcmanfm'
 ### COLORS ###
 
 colors = {
-    'border_focus':  '#34dccc',
-    'border_normal': '#1d2330',
-    'border_focus_floating':  '#3282b8',
-    'bg_odd':        '#0f4c75',
-    'bg_even':       '#3282b8',
-    'bg_bar':        '#00000000',
-    'bg_third':      '#1b262c',
+    'border_focus':          '#34dccc',
+    'border_normal':         '#1d2330',
+    'border_focus_floating': '#3282b8',
+    'bg_odd':                '#0f4c75',
+    'bg_even':               '#3282b8',
+    'bg_bar':                '#00000000',
+    'bg_third':              '#1b262c',
 }
 
 
@@ -122,7 +122,7 @@ floating_layout = layout.Floating(float_rules=[
 
 widget_defaults = dict(
     font='Roboto Mono Nerd Font',
-    fontsize=11,
+    fontsize=10,
     padding=8,
 )
 extension_defaults = widget_defaults.copy()
@@ -243,8 +243,8 @@ screens = [
                 icon('\uf11c', colors['bg_even']),
                 widget.KeyboardLayout(
                     background=colors['bg_even'],
-                    configured_keyboards=['us', 'ru'],
-                    option='grp:alt_shift_toggle,caps:ctrl_modifier'
+                    configured_keyboards=['us', 'ru', 'jp'],
+                    option='caps:ctrl_modifier'
                 ),
 
                 arrow(
@@ -258,9 +258,9 @@ screens = [
                     format='%I:%M:%S %p, %A %m/%d/%Y',
                 ),
             ],
-            size=24,
+            size=20,
             background=colors['bg_bar'],
-            margin=3,
+            margin=1,
         ),
     ),
 ]
