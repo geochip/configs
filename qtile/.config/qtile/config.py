@@ -243,7 +243,7 @@ screens = [
                 icon('\uf11c', colors['bg_even']),
                 widget.KeyboardLayout(
                     background=colors['bg_even'],
-                    configured_keyboards=['us', 'ru', 'jp'],
+                    configured_keyboards=['us', 'ru'],
                     option='caps:ctrl_modifier'
                 ),
 
@@ -404,6 +404,11 @@ keys.extend([
         desc='Put the focused window to/from fullscreen mode'
     ),
     Key(
+        [mod], 'c',
+        lazy.window.center(),
+        desc='Center a floating window on the screen'
+    ),
+    Key(
         [mod], 'f',
         lazy.hide_show_bar(),
         desc='Hide or show the qtile bar'
@@ -465,14 +470,14 @@ keys.extend([
     # Screenshots
     Key(
         [], 'Print',
-        # lazy.spawn('flameshot screen -c -p ' + os.path.expanduser('~/Pictures/screenshots/')),
-        lazy.spawn('ksnip -m'),
+        lazy.spawn('flameshot screen -c -p ' + os.path.expanduser('~/Pictures/screenshots/')),
+        # lazy.spawn('ksnip -m'),
         desc='Run screenshot utility and take a screenshot of the whole screen'
     ),
     Key(
         ['control'], 'Print',
-        # lazy.spawn('flameshot gui'),
-        lazy.spawn('ksnip -r'),
+        lazy.spawn('flameshot gui'),
+        # lazy.spawn('ksnip -r'),
         desc='Run screenshot utility and take a screenshot of a region of the screen'
     ),
     Key(

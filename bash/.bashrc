@@ -13,7 +13,7 @@ export PS1
 
 export PATH="$PATH:$HOME/.local/bin"
 export EDITOR=nvim
-export DOTFILES=$HOME/Dev/configs/nvim/.config/nvim
+export DOTFILES=$HOME/dev/configs/nvim/.config/nvim
 export STOW_FOLDERS="nvim,alacritty,bash,nitrogen,picom,qtile,i3,i3status,awesome,polybar,tmux,conky"
 
 # set -o vi
@@ -22,6 +22,6 @@ alias ls=exa
 
 
 # Quartus stuff
-export QSYS_ROOTDIR="/home/geochip/Applications/intelFPGA_lite/17.1/quartus/sopc_builder/bin"
-export PATH="$PATH:$HOME/Applications/intelFPGA_lite/17.1/quartus/bin"
+# export QSYS_ROOTDIR="/home/geochip/.cache/paru/clone/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/21.1/quartus/sopc_builder/bin"
+# export PATH="$PATH:$HOME/Applications/intelFPGA_lite/17.1/quartus/bin"
 

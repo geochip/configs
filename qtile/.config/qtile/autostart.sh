@@ -2,7 +2,7 @@
 picom --backend glx &
 nitrogen --restore &
 nm-applet &
-udiskie &
+#udiskie &
 
 script=$(realpath $0)
 script_path=$(dirname $script)

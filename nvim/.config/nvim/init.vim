@@ -102,6 +102,11 @@ nnoremap <leader>dbp :call vimspector#ToggleBreakpoint()<CR>
 nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
 
 
+nnoremap n nzzzv
+nnoremap N Nzzzv
+nnoremap J mzJ`z
+
+
 augroup GEOCHIP
     autocmd!
     autocmd TextYankPost * lua vim.highlight.on_yank({ on_visual = false })
