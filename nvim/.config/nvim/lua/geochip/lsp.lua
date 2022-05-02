@@ -1,4 +1,4 @@
-local nvim_lsp = require('lspconfig')
+--local nvim_lsp = require('lspconfig')
 local on_attach = function(_, bufnr)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
@@ -15,14 +15,20 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
--- Enable the following language servers
-local servers = { 'clangd', 'pyright' }
-for _, lsp in ipairs(servers) do
-  nvim_lsp[lsp].setup({
-    on_attach = on_attach,
-    capabilities = capabilities,
-  })
-end
+require('nvim-lsp-installer').on_server_ready(function(server)
+    local capabilities = vim.lsp.protocol.make_client_capabilities()
+    local opts = {capabilities = capabilities, on_attach = on_attach}
+    server:setup(opts)
+end)
 
-nvim_lsp.sumneko_lua.setup({})
+-- Enable the following language servers
+--local servers = { 'clangd', 'pyright' }
+--for _, lsp in ipairs(servers) do
+  --nvim_lsp[lsp].setup({
+    --on_attach = on_attach,
+    --capabilities = capabilities,
+  --})
+--end
+
+--nvim_lsp.sumneko_lua.setup({})
 

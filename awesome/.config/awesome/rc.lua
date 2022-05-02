@@ -577,4 +577,6 @@ client.connect_signal("unfocus", function(c) c.border_color = beautiful.border_n
 
 
 awful.spawn.with_shell("~/.config/awesome/autostart.sh")
+awful.spawn('picom --backend glx')
+awful.spawn('nm-applet')
 

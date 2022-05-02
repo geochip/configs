@@ -5,8 +5,10 @@ packadd termdebug
 
 set completeopt=menuone,noselect
 
+" Before
 let ayucolor="mirage"
 colorscheme ayu
+
 set background=dark
 set termguicolors
 highlight Normal guibg=None

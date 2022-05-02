@@ -8,10 +8,10 @@ run() {
     $@ >> ~/.local/share/autostart_log/autostart.log 2>&1 &
 }
 
-run picom --backend glx
-run nm-applet
-run udiskie
-run cbatticon
+#run "picom --backend glx"
+#run "nm-applet"
+#run udiskie
+#run cbatticon
 
 nitrogen --restore &
 

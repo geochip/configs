@@ -1,11 +1,7 @@
-local check_back_space = function()
-  local col = vim.fn.col('.') - 1
-  return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s')
-end
+local lspkind = require('lspkind')
+lspkind.init()
 
 require('cmp_nvim_lsp').setup()
-
-local WIDE_HEIGHT = 40
 
 local cmp = require('cmp')
 cmp.setup({
@@ -15,44 +11,42 @@ cmp.setup({
     end,
   },
 
-  documentation = {
-    border = { '', '', '', ' ', '', '', '', ' ' },
-    winhighlight = 'NormalFloat:CmpDocumentation,FloatBorder:CmpDocumentationBorder',
-    maxwidth = math.floor((WIDE_HEIGHT * 2) * (vim.o.columns / (WIDE_HEIGHT * 2 * 16 / 9))),
-    maxheight = math.floor(WIDE_HEIGHT * (WIDE_HEIGHT / vim.o.lines)),
-  },
-
   mapping = {
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-e>'] = cmp.mapping.close(),
     ['<C-Space>'] = cmp.mapping.complete(),
-
-    ['<Tab>'] = function(fallback)
-      if vim.fn.pumvisible() == 1 then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-n>', true, true, true), 'n')
-      elseif check_back_space() then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Tab>', true, true, true), 'n')
-      elseif vim.fn['vsnip#available']() == 1 then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>(vsnip-expand-or-jump)', true, true, true), '')
-      else
-        fallback()
-      end
-    end,
-
-    ['<S-Tab>'] = function(fallback)
-      if vim.fn.pumvisible() == 1 then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<C-p>', true, true, true), 'n')
-      elseif check_back_space() then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<S-Tab>', true, true, true), 'n')
-      elseif vim.fn['vsnip#available']() == 1 then
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes('<Plug>(vsnip-jump-prev)', true, true, true), '')
-      else
-        fallback()
-      end
-    end,
+    ['<C-y>'] = cmp.mapping.confirm({
+        behavior = cmp.ConfirmBehavior.Insert,
+        select = true
+    }),
+    ['<C-p>'] = cmp.mapping.select_prev_item(),
+    ['<C-n>'] = cmp.mapping.select_next_item(),
   },
 
   sources = {
       { name = 'nvim_lsp' },
+      { name = 'nvim_lsp_signature_help' },
       { name = 'nvim_lua' },
+      { name = 'vsnip' },
+      { name = 'buffer' }
   },
+
+  formatting = {
+    format = lspkind.cmp_format({
+        with_text = true,
+        menu = {
+            buffer = '[buf]',
+            nvim_lsp = '[LSP]',
+            nvim_lua = '[api]',
+            path = '[path]',
+            vsnip = '[snip]',
+        }
+    })
+  },
+
+  experimental = {
+      native_menu = false
+  }
 })
 

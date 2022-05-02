@@ -5,13 +5,17 @@ Plug 'neovim/nvim-lspconfig'
 Plug 'windwp/nvim-autopairs'
 Plug 'hrsh7th/vim-vsnip'
 Plug 'hrsh7th/vim-vsnip-integ'
+Plug 'hrsh7th/nvim-cmp'
 Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
 Plug 'hrsh7th/cmp-nvim-lsp'
 Plug 'hrsh7th/cmp-nvim-lua'
-Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-nvim-lsp-signature-help'
+Plug 'williamboman/nvim-lsp-installer'
+Plug 'onsails/lspkind.nvim'
 
 " For lua language server
-Plug 'tjdevries/nlua.nvim'
+" Plug 'tjdevries/nlua.nvim'
 
 " Debugging
 " Plug 'puremourning/vimspector'
@@ -37,6 +41,8 @@ Plug 'nvim-telescope/telescope-fzy-native.nvim'
 Plug 'gruvbox-community/gruvbox'
 Plug 'ayu-theme/ayu-vim'
 Plug 'vim-airline/vim-airline'
+
+Plug 'rcarriga/nvim-notify'
 Plug 'Yggdroot/indentLine'
 Plug 'ryanoasis/vim-devicons'
 Plug 'kyazdani42/nvim-web-devicons'
@@ -73,7 +79,8 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
 " Buffers
-nnoremap <leader>bn :bNext<CR>
+nnoremap <leader>bn :bnext<CR>
+nnoremap <leader>bp :bprevious<CR>
 nnoremap <leader>bd :bdelete<CR>
 
 map <C-_> <Plug>NERDCommenterToggle
