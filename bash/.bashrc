@@ -19,7 +19,7 @@ export STOW_FOLDERS="nvim,alacritty,bash,nitrogen,picom,qtile,i3,i3status,awesom
 # set -o vi
 
 alias ls=exa
-
+alias grep='grep --color=auto'
 
 # Quartus stuff
 # export QSYS_ROOTDIR="/home/geochip/.cache/paru/clone/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/21.1/quartus/sopc_builder/bin"

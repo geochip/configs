@@ -20,6 +20,8 @@ Plug 'onsails/lspkind.nvim'
 " Debugging
 " Plug 'puremourning/vimspector'
 " Plug 'szw/vim-maximizer'
+Plug 'mfussenegger/nvim-dap'
+Plug 'mfussenegger/nvim-dap-python'
 
 " Better syntax highlighting
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -107,6 +109,12 @@ nnoremap <leader>d_ :call vimspector#Restart()<CR>
 nnoremap <leader>drc :call vimspector#RunToCursor()<CR>
 nnoremap <leader>dbp :call vimspector#ToggleBreakpoint()<CR>
 nmap <leader>dcbp <Plug>VimspectorToggleConditionalBreakpoint
+
+nnoremap <F5> :lua require('dap').continue()<CR>
+nnoremap <F10> :lua require('dap').step_over()<CR>
+nnoremap <F11> :lua require('dap').step_into()<CR>
+nnoremap <leader>b :lua require('dap').toggle_breakpoint()<CR>
+nnoremap <leader>B :lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))()<CR>
 
 
 nnoremap n nzzzv

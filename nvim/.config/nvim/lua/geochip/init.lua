@@ -5,4 +5,5 @@ require('geochip.nvim-cmp')
 require('geochip.tree-sitter')
 require('geochip.nvim-colorizer')
 require('geochip.nvim-notify')
+require('geochip.nvim-dap')
 
