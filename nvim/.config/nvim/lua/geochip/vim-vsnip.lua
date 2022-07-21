@@ -21,8 +21,3 @@ vim.api.nvim_set_keymap('x', 's', '<Plug>(vsnip-select-text)', {})
 vim.api.nvim_set_keymap('n', 'S', '<Plug>(vsnip-cut-text)', {})
 vim.api.nvim_set_keymap('x', 'S', '<Plug>(vsnip-cut-text)', {})
 
--- If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
-vim.g.vsnip_filetypes = {}
-vim.g.vsnip_filetypes.javascriptreact = ['javascript']
-vim.g.vsnip_filetypes.typescriptreact = ['typescript']
-
