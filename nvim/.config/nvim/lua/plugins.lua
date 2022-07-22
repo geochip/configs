@@ -20,6 +20,7 @@ return require('packer').startup(function(use)
 
     -- Debugging
     use('mfussenegger/nvim-dap')
+    use ({ 'rcarriga/nvim-dap-ui', requires = {'mfussenegger/nvim-dap'} })
     use('mfussenegger/nvim-dap-python')
 
     -- Better syntax highlighting
@@ -55,3 +56,4 @@ return require('packer').startup(function(use)
     --use('nvim-lua/popup.nvim')
     --use('ray-x/lsp_signature.nvim')
 end)
+

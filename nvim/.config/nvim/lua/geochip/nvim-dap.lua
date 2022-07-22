@@ -1,14 +1,32 @@
 local dap = require('dap')
+
+-- nvim-dap-ui plugin
+local dapui = require("dapui")
+dapui.setup()
+
+dap.listeners.after.event_initialized["dapui_config"] = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated["dapui_config"] = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited["dapui_config"] = function()
+  dapui.close()
+end
+
+-- ADAPTERS
+-- C++ adapter
 dap.adapters.cppdbg = {
   id = 'cppdbg',
   type = 'executable',
   command = '/home/geochip/Downloads/cpptools/extension/debugAdapters/bin/OpenDebugAD7',
 }
 
--- Python
+-- CONFIGURATIONS
+-- Python configuration
 require('dap-python').setup('~/.virtualenvs/debugpy/bin/python')
 
--- C++
+-- C++ configuration
 dap.configurations.cpp = {
   {
     name = "Launch file",
