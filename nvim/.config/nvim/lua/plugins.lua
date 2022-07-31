@@ -24,7 +24,7 @@ return require('packer').startup(function(use)
     use('mfussenegger/nvim-dap-python')
 
     -- Better syntax highlighting
-    use({'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'})
+    use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
     use('nvim-treesitter/playground')
 
     -- Mappings for commenting code
@@ -33,6 +33,12 @@ return require('packer').startup(function(use)
     -- Git integration
     use('tpope/vim-fugitive')
     use('airblade/vim-gitgutter')
+
+    -- Markdown preview
+    use({
+        'iamcco/markdown-preview.nvim',
+        run = function() vim.fn["mkdp#util#install"]() end,
+    })
 
     -- Telescope fuzzy finder
     use('nvim-lua/plenary.nvim')
@@ -51,7 +57,7 @@ return require('packer').startup(function(use)
     use('norcalli/nvim-colorizer.lua')
 
     -- Temporary commented out
-    --use('sheerun/vim-polyglot')
+    use('sheerun/vim-polyglot')
 
     --use('nvim-lua/popup.nvim')
     --use('ray-x/lsp_signature.nvim')

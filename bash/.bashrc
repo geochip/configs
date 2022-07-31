@@ -18,7 +18,7 @@ export STOW_FOLDERS="nvim,alacritty,bash,nitrogen,picom,qtile,i3,i3status,awesom
 
 # set -o vi
 
-alias ls=exa
+alias ls='exa --group-directories-first'
 alias grep='grep --color=auto'
 
 # Quartus stuff

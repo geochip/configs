@@ -9,12 +9,10 @@ vim.bo.tabstop = indent
 vim.bo.softtabstop = indent
 vim.bo.shiftwidth = indent
 vim.bo.expandtab = true
-vim.bo.smartindent = true
 vim.bo.autoindent = true
 
 vim.bo.swapfile = false
 vim.o.backup = false
-vim.o.undodir = '~/.vim/undodir'
 vim.bo.undofile = true
 
 -- set statusline=%f\ %=Line\ %l/%L\ Col\ %c\ (%p%%)

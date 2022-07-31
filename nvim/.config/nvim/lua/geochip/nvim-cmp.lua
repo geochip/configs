@@ -36,11 +36,11 @@ cmp.setup({
     format = lspkind.cmp_format({
         with_text = true,
         menu = {
-            buffer = '[buf]',
             nvim_lsp = '[LSP]',
             nvim_lua = '[api]',
-            path = '[path]',
             vsnip = '[snip]',
+            buffer = '[buf]',
+            path = '[path]',
         }
     })
   },

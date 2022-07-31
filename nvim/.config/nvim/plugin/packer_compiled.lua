@@ -114,6 +114,11 @@ _G.packer_plugins = {
     path = "/home/geochip/.local/share/nvim/site/pack/packer/start/lspkind.nvim",
     url = "https://github.com/onsails/lspkind.nvim"
   },
+  ["markdown-preview.nvim"] = {
+    loaded = true,
+    path = "/home/geochip/.local/share/nvim/site/pack/packer/start/markdown-preview.nvim",
+    url = "https://github.com/iamcco/markdown-preview.nvim"
+  },
   nerdcommenter = {
     loaded = true,
     path = "/home/geochip/.local/share/nvim/site/pack/packer/start/nerdcommenter",
@@ -218,6 +223,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/geochip/.local/share/nvim/site/pack/packer/start/vim-gitgutter",
     url = "https://github.com/airblade/vim-gitgutter"
+  },
+  ["vim-polyglot"] = {
+    loaded = true,
+    path = "/home/geochip/.local/share/nvim/site/pack/packer/start/vim-polyglot",
+    url = "https://github.com/sheerun/vim-polyglot"
   },
   ["vim-vsnip"] = {
     loaded = true,

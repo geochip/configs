@@ -498,6 +498,11 @@ keys.extend([
         desc='Run rofi'
     ),
     Key(
+        [mod], 'e',
+        lazy.spawn('rofimoji --action type copy'),
+        desc='Run rofimoji'
+    ),
+    Key(
         [mod], 'b',
         lazy.spawn(BROWSER),
         desc='Run browser of choice'
