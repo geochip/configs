@@ -34,3 +34,5 @@ vim.wo.wrap = false
 vim.wo.list = true
 vim.wo.signcolumn = 'yes'
 
+vim.g.vim_markdown_conceal_code_blocks = 0
+

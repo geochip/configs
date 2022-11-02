@@ -562,12 +562,10 @@ def show_keys(keys):
         else:
             key = k.key
 
-        key_line = '{:<30} {}'.format(mods + key, desc + '\n')
+        key_line = '{:<30} {}\n'.format(mods + key, desc)
         key_help += key_line
 
-        # debug_print(key_line)  # debug only
-
-        return key_help
+    return key_help
 
 keys.extend([
     Key(

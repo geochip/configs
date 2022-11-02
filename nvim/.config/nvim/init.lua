@@ -19,8 +19,8 @@ vim.g['airline#extensions#tabline#enabled'] = 1
 
 
 -- COLORSCHEME SETUP
- vim.g.ayucolor = 'mirage'
-vim.cmd('colorscheme ayu')
+-- vim.g.ayucolor = 'mirage'
+vim.cmd('colorscheme gruvbox')
 vim.o.background = 'dark'
 vim.o.termguicolors = true
 
