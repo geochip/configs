@@ -1,0 +1,5 @@
+#!/bin/sh
+
+alias ls='exa --group-directories-first'
+alias grep='grep --color=auto'
+
