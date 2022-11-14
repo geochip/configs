@@ -1,13 +1,15 @@
 #!/bin/sh
 
+# Vi mode
+bindkey -v
+
 # Command history
 HISTFILE=$HOME/.cache/zsh/history
 HISTSIZE=1000
 SAVEHIST=1000
 
 # Completion
-# zstyle :compinstall filename '$ZDOTDIR/.zshrc'
-
+zstyle :compinstall filename '$ZDOTDIR/.zshrc'
 autoload -Uz compinit
 zstyle ':completion:*' menu select
 compinit -d $HOME/.cache/zsh/zcompdump-$ZSH_VERSION
