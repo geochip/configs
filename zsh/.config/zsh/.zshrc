@@ -1,7 +1,7 @@
 #!/bin/sh
 
-# Vi mode
-bindkey -v
+bindkey "^[[1;5C" forward-word
+bindkey "^[[1;5D" backward-word
 
 # Command history
 HISTFILE=$HOME/.cache/zsh/history
