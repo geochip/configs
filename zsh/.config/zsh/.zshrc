@@ -12,6 +12,7 @@ SAVEHIST=1000
 zstyle :compinstall filename '$ZDOTDIR/.zshrc'
 autoload -Uz compinit
 zstyle ':completion:*' menu select
+zstyle ':completion:*' rehash true
 compinit -d $HOME/.cache/zsh/zcompdump-$ZSH_VERSION
 _comp_options+=(globdots) # Include hidden files.
 
@@ -22,5 +23,7 @@ zsh_add_file "zsh-aliases"
 
 # Environment variables
 export EDITOR="nvim"
+export STOW_FOLDERS="alacritty,tmux,zsh,nvim"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT="-c"
 
