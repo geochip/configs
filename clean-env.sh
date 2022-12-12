@@ -1,4 +1,4 @@
-#!/usr/bin/sh
+#!/usr/bin/env sh
 
 for folder in $(echo $STOW_FOLDERS | sed "s/,/ /g")
 do
