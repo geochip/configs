@@ -27,3 +27,4 @@ export STOW_FOLDERS="alacritty,tmux,zsh,nvim"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export MANROFFOPT="-c"
 
+export PATH="$HOME/.local/scripts:$PATH"
