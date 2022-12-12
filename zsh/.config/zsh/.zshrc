@@ -21,6 +21,10 @@ source "$ZDOTDIR/zsh-functions"
 zsh_add_file "zsh-prompt"
 zsh_add_file "zsh-aliases"
 
+
+bindkey -s ^f "tmux-sessionizer\n"
+
+
 # Environment variables
 export EDITOR="nvim"
 export STOW_FOLDERS="alacritty,tmux,zsh,nvim"
