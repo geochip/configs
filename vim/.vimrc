@@ -88,8 +88,8 @@ vnoremap J :m '>+1<CR>gv=gv
 vnoremap K :m '<-2<CR>gv=gv
 
 " Buffers
-nnoremap <leader>bn :bnext<CR>
-nnoremap <leader>bp :bprevious<CR>
+nnoremap <C-n> :bnext<CR>
+nnoremap <C-p> :bprevious<CR>
 nnoremap <leader>bd :bdelete<CR>
 
 map <C-_> <Plug>NERDCommenterToggle
