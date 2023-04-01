@@ -40,6 +40,7 @@ vim.api.nvim_set_keymap('n', '<leader>j', ':wincmd j<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>k', ':wincmd k<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>l', ':wincmd l<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>u', ':nohlsearch<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>rt', [[mz:%s/ \+$//g<CR>`z]], { noremap = true })
 
 vim.api.nvim_set_keymap('n', '<leader>+', ':vertical resize +5<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>-', ':vertical resize -5<CR>', { noremap = true })

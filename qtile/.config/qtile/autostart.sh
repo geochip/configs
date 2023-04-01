@@ -2,6 +2,7 @@
 picom --backend glx &
 nitrogen --restore &
 nm-applet &
+fcitx5 -d &
 #udiskie &
 
 script=$(realpath $0)
