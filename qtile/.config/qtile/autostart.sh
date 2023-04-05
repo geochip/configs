@@ -1,4 +1,5 @@
 #!/bin/sh
+lxsession &
 picom --backend glx &
 nitrogen --restore &
 nm-applet &
