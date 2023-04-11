@@ -4,3 +4,5 @@ __pycache__
 
 nvim/.config/nvim/plugin/packer_compiled.lua
 
+zsh/.config/zsh/.zcompcache/
+zsh/.config/zsh/.zcompdump
