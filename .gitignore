@@ -2,3 +2,5 @@ __pycache__
 
 *.pyc
 
+nvim/.config/nvim/plugin/packer_compiled.lua
+
