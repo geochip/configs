@@ -12,7 +12,14 @@ return require('packer').startup(function(use)
     use('hrsh7th/cmp-nvim-lsp')
     use('hrsh7th/cmp-nvim-lua')
     use('hrsh7th/cmp-nvim-lsp-signature-help')
-    use('williamboman/nvim-lsp-installer')
+    -- Deprecated
+    --use('williamboman/nvim-lsp-installer')
+    use({'jose-elias-alvarez/null-ls.nvim'})
+    use({
+        "williamboman/mason.nvim",
+        "williamboman/mason-lspconfig.nvim",
+        run = ":MasonUpdate" -- :MasonUpdate updates registry contents
+    })
     use('onsails/lspkind.nvim')
 
     -- For lua language server
