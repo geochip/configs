@@ -14,22 +14,17 @@ end
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
--- mason (lsp servers installer)
-require("mason").setup()
-require("mason-lspconfig").setup()
-
 -- linter and formatter
-local null_ls = require("null-ls")
-null_ls.setup({
-    sources = {
-        null_ls.builtins.formatting.stylua,
-        null_ls.builtins.diagnostics.eslint,
-        null_ls.builtins.completion.spell,
-        null_ls.builtins.diagnostics.ansiblelint,
-        null_ls.builtins.diagnostics.mypy,
-        null_ls.builtins.diagnostics.pycodestyle,
-    },
-})
+--local null_ls = require("null-ls")
+--null_ls.setup({
+    --sources = {
+        --null_ls.builtins.formatting.stylua,
+        --null_ls.builtins.diagnostics.eslint,
+        --null_ls.builtins.completion.spell,
+        --null_ls.builtins.diagnostics.mypy,
+        --null_ls.builtins.diagnostics.pycodestyle,
+    --},
+--})
 
 -- Enable the following language servers
 local lspconfig = require('lspconfig')
