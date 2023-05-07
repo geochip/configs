@@ -514,6 +514,11 @@ keys.extend([
         lazy.spawn(FILEMANAGER),
         desc='Run GUI-based file manager of choice'
     ),
+    Key(
+        [mod, 'shift'], 'p',
+        lazy.spawn(os.path.expanduser('~/.local/bin/gopassmenu')),
+        desc='Run gopassmenu'
+    ),
 ])
 
 
