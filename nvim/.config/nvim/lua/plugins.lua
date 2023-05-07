@@ -6,15 +6,18 @@ return require('packer').startup(function(use)
     use('windwp/nvim-autopairs')
     use('hrsh7th/vim-vsnip')
     use('hrsh7th/vim-vsnip-integ')
+    -- Completion framefork
     use('hrsh7th/nvim-cmp')
+    -- LSP completion source
+    use('hrsh7th/cmp-nvim-lsp')
+    -- Other completion sources
+    use('hrsh7th/cmp-nvim-lsp-signature-help')
+    use('hrsh7th/cmp-nvim-lua')
     use('hrsh7th/cmp-buffer')
     use('hrsh7th/cmp-path')
-    use('hrsh7th/cmp-nvim-lsp')
-    use('hrsh7th/cmp-nvim-lua')
-    use('hrsh7th/cmp-nvim-lsp-signature-help')
     -- Deprecated
     --use('williamboman/nvim-lsp-installer')
-    use({'jose-elias-alvarez/null-ls.nvim'})
+    --use({'jose-elias-alvarez/null-ls.nvim'})
     use({
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",

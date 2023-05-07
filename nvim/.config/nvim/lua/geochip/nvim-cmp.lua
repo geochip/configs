@@ -11,11 +11,13 @@ cmp.setup({
     end,
   },
 
+  window = {},
+
   mapping = {
     ['<C-b>'] = cmp.mapping.scroll_docs(-4),
     ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-e>'] = cmp.mapping.close(),
     ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-e>'] = cmp.mapping.abort(),
     ['<C-y>'] = cmp.mapping.confirm({
         behavior = cmp.ConfirmBehavior.Insert,
         select = true
@@ -24,13 +26,14 @@ cmp.setup({
     ['<C-n>'] = cmp.mapping.select_next_item(),
   },
 
-  sources = {
+  sources = cmp.config.sources({
       { name = 'nvim_lsp' },
       { name = 'nvim_lsp_signature_help' },
       { name = 'nvim_lua' },
       { name = 'vsnip' },
-      { name = 'buffer' }
-  },
+      { name = 'buffer' },
+      { name = 'path' }
+  }),
 
   formatting = {
     format = lspkind.cmp_format({
