@@ -28,7 +28,7 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Enable the following language servers
 local lspconfig = require('lspconfig')
-local servers = { 'clangd', 'pylsp', 'rust_analyzer' }
+local servers = { 'clangd', 'pylsp' }
 for _, server in ipairs(servers) do
   lspconfig[server].setup({
     on_attach = on_attach,
@@ -42,3 +42,10 @@ lspconfig.html.setup({
   filetypes = { 'html', 'htmldjango' }
 })
 
+local rt = require("rust-tools")
+rt.setup({
+  server = {
+    on_attach = on_attach,
+    cpabilities = capabilities,
+  },
+})

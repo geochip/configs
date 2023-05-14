@@ -28,6 +28,9 @@ return require('packer').startup(function(use)
     -- For lua language server
     -- use('tjdevries/nlua.nvim')
 
+    -- Rust
+    use 'simrat39/rust-tools.nvim'
+
     -- Debugging
     use('mfussenegger/nvim-dap')
     use ({ 'rcarriga/nvim-dap-ui', requires = {'mfussenegger/nvim-dap'} })
