@@ -245,7 +245,7 @@ screens = [
                 icon('\uf11c', colors['bg_even']),
                 widget.KeyboardLayout(
                     background=colors['bg_even'],
-                    configured_keyboards=['us', 'ru'],
+                    configured_keyboards=['us', 'ru', 'dvorak'],
                     option='caps:ctrl_modifier'
                 ),
 
