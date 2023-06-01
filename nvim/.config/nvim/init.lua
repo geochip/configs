@@ -35,10 +35,6 @@ vim.cmd('highlight LspDiagnosticsDefaultHint guifg=green gui=bold')
 -- KEYMAPPINGS
 vim.api.nvim_set_keymap('n', '<leader>w', ':w<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>q', ':q<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>h', ':wincmd h<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>j', ':wincmd j<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>k', ':wincmd k<CR>', { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>l', ':wincmd l<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>u', ':nohlsearch<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>rt', [[mz:%s/ \+$//g<CR>`z]], { noremap = true })
 
@@ -53,9 +49,6 @@ vim.api.nvim_set_keymap('n', 'N', 'Nzzzv', { noremap = true })
 vim.api.nvim_set_keymap('n', 'J', 'mzJ`z', { noremap = true })
 
 -- Buffers
---vim.api.nvim_set_keymap('n', '<leader>bn', ':bnext<CR>', { noremap = true })
---vim.api.nvim_set_keymap('n', '<leader>bp', ':bprevious<CR>', { noremap = true })
---vim.api.nvim_set_keymap('n', '<leader>bd', ':bdelete<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-n>', ':bnext<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-p>', ':bprevious<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<M-d>', ':bdelete<CR>', { noremap = true })
