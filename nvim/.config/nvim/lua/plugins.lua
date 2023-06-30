@@ -67,7 +67,7 @@ return require('packer').startup(function(use)
     use('Yggdroot/indentLine')
     use('ryanoasis/vim-devicons')
     use('kyazdani42/nvim-web-devicons')
-    use('norcalli/nvim-colorizer.lua')
+    --use('norcalli/nvim-colorizer.lua')
 
     -- Temporary commented out
     use('sheerun/vim-polyglot')
