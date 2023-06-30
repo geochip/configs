@@ -28,7 +28,7 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 
 -- Enable the following language servers
 local lspconfig = require('lspconfig')
-local servers = { 'clangd', 'pyright', 'gopls'}
+local servers = { 'clangd', 'pyright', 'rust_analyzer', 'zls', 'gopls' }
 for _, server in ipairs(servers) do
   lspconfig[server].setup({
     on_attach = on_attach,
