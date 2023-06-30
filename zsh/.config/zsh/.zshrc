@@ -25,6 +25,10 @@ zsh_add_file "zsh-aliases"
 bindkey -s ^f "tmux-sessionizer\n"
 
 
+# For hasher
+mkdir -p "$HOME/tmp/hasher"
+
+
 # Environment variables
 export EDITOR="nvim"
 export STOW_FOLDERS="alacritty,tmux,x,zsh,nvim"

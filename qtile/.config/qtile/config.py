@@ -106,11 +106,13 @@ floating_layout = layout.Floating(float_rules=[
         Match(wm_class='ssh-askpass'),  # ssh-askpass
         Match(title='branchdialog'),  # gitk
         Match(title='pinentry'),  # GPG key password entry
+        Match(wm_class='pinentry-gtk-2'), # GPG key password entry
         Match(wm_class='flameshot'), # Flameshot
         Match(wm_class='display'), # ImageMagick
         Match(role='pop-up'),
         Match(wm_class='zoom'),
         Match(wm_class='conky-semi'),
+        Match(title='Quick Format Citation'), # Zotero citation
     ],
     border_width=2,
     border_focus=colors['bg_even'],
@@ -137,25 +139,6 @@ def icon(icon_text, background):
         padding=8,
     )
 
-def arrow(foreground, background, left=True):
-    return widget.TextBox(
-        text=('\uf0d9' if left else '\uf0da'),
-        foreground=foreground,
-        background=background,
-        fontsize=64,
-        padding=-13,
-    )
-
-def lower_right_triangle(foreground, background):
-    return widget.TextBox(
-        text='\u25e2',
-        foreground=foreground,
-        background=background,
-        fontsize=64,
-        padding=-1,
-    )
-
-
 screens = [
     Screen(
         top=bar.Bar(
@@ -168,24 +151,12 @@ screens = [
                     format='{MemUsed:,.0f} MiB / {MemTotal:,.0f} MiB',
                 ),
 
-                arrow(
-                    foreground=colors['bg_odd'],
-                    background=colors['bg_even'],
-                    left=False
-                ),
-
                 widget.DF(
                     background=colors['bg_even'],
                     format='{p}: {uf:,} {m}iB / {s:,} {m}iB',
                     visible_on_warn=False,
                     update_interval=5,
                     measure='M',
-                ),
-
-                arrow(
-                    foreground=colors['bg_even'],
-                    background=colors['bg_bar'],
-                    left=False
                 ),
 
                 widget.Spacer(),
@@ -211,18 +182,8 @@ screens = [
                     length=15,
                 ),
 
-                arrow(
-                    foreground=colors['bg_even'],
-                    background=colors['bg_bar']
-                ),
-
                 icon('\uf028', colors['bg_even']),
                 volume.Volume(
-                    background=colors['bg_even']
-                ),
-
-                arrow(
-                    foreground=colors['bg_odd'],
                     background=colors['bg_even']
                 ),
 
@@ -235,11 +196,6 @@ screens = [
                     notify_below=15,
                 ),
 
-                arrow(
-                    foreground=colors['bg_even'],
-                    background=colors['bg_odd']
-                ),
-
                 icon('\uf11c', colors['bg_even']),
                 widget.KeyboardLayout(
                     background=colors['bg_even'],
@@ -247,15 +203,9 @@ screens = [
                     option='caps:ctrl_modifier'
                 ),
 
-                arrow(
-                    foreground=colors['bg_odd'],
-                    background=colors['bg_even']
-                ),
-
-                icon('\uf5ef', colors['bg_odd']),
                 widget.Clock(
                     background=colors['bg_odd'],
-                    format='%I:%M:%S %p, %A %m/%d/%Y',
+                    format='%H:%M:%S, %A %d.%m.%Y',
                 ),
             ],
             size=20,
@@ -511,6 +461,16 @@ keys.extend([
         [mod], 'g',
         lazy.spawn(FILEMANAGER),
         desc='Run GUI-based file manager of choice'
+    ),
+    Key(
+        [mod, 'shift'], 'p',
+        lazy.spawn(os.path.expanduser('~/.local/bin/gopassmenu')),
+        desc='Run gopassmenu'
+    ),
+    Key(
+        [mod, 'control'], 's',
+        lazy.spawn('shutdown now'),
+        desc='Run gopassmenu'
     ),
 ])
 

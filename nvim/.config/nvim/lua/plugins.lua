@@ -28,6 +28,9 @@ return require('packer').startup(function(use)
     -- For lua language server
     -- use('tjdevries/nlua.nvim')
 
+    -- Rust
+    use 'simrat39/rust-tools.nvim'
+
     -- Debugging
     use('mfussenegger/nvim-dap')
     use ({ 'rcarriga/nvim-dap-ui', requires = {'mfussenegger/nvim-dap'} })
@@ -64,7 +67,7 @@ return require('packer').startup(function(use)
     use('Yggdroot/indentLine')
     use('ryanoasis/vim-devicons')
     use('kyazdani42/nvim-web-devicons')
-    use('norcalli/nvim-colorizer.lua')
+    --use('norcalli/nvim-colorizer.lua')
 
     -- Temporary commented out
     use('sheerun/vim-polyglot')
