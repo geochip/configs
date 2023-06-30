@@ -31,7 +31,7 @@ mkdir -p "$HOME/tmp/hasher"
 
 # Environment variables
 export EDITOR="nvim"
-export STOW_FOLDERS="alacritty,tmux,x,zsh,nvim"
+export STOW_FOLDERS="alacritty,tmux,zsh,nvim"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export DOTFILES="$HOME/.config/nvim"
 
