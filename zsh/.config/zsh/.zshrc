@@ -35,4 +35,6 @@ export STOW_FOLDERS="alacritty,tmux,x,zsh,nvim"
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export DOTFILES="$HOME/.config/nvim"
 
+export PATH="$PATH:$HOME/go/bin"
+
 eval "$(starship init zsh)"
