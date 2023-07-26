@@ -9,4 +9,6 @@ alias gchl='gear -v --commit --hasher -- hsh -v 2>&1 | tee log.$(seq -f "%02g" $
 alias ghrl='gear -v --hasher -- hsh-rebuild -v 2>&1 | tee log.$(seq -f "%02g" $(($(ls log.* | wc -l) + 1)) $(($(ls log.* | wc -l) + 1))).$(date +"%Y-%m-%d-%H-%M-%S-%N")'
 alias gchrl='gear -v --commit --hasher -- hsh-rebuild -v 2>&1 | tee log.$(seq -f "%02g" $(($(ls log.* | wc -l) + 1)) $(($(ls log.* | wc -l) + 1))).$(date +"%Y-%m-%d-%H-%M-%S-%N")'
 alias gi='ssh gitery init-db $(basename $(pwd))'
+alias gc='ssh gitery clone $(git remote get-url origin) $(basename $(pwd))'
 alias gd='ssh gitery default-branch $(basename $(pwd)) sisyphus'
+alias gra='git remote add geochip gitery:packages/$(basename $(pwd)).git'
