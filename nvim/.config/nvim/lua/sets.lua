@@ -36,4 +36,5 @@ vim.wo.list = true
 vim.wo.signcolumn = 'yes'
 
 vim.g.vim_markdown_conceal_code_blocks = 0
+vim.g.spec_chglog_get_specfile_evr_method = "rpm"
 
