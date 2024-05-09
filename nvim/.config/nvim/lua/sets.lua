@@ -23,7 +23,7 @@ vim.o.hlsearch = true
 vim.o.incsearch = true
 vim.o.scrolloff = 8
 vim.o.cmdheight = 2
-vim.o.listchars = 'trail:·,tab:»·,extends:>,precedes:<'
+vim.o.listchars = 'trail:·,tab:  ,extends:>,precedes:<'
 
 vim.o.guicursor = nil
 
@@ -36,4 +36,3 @@ vim.wo.list = true
 vim.wo.signcolumn = 'yes'
 
 vim.g.vim_markdown_conceal_code_blocks = 0
-
