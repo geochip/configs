@@ -112,6 +112,7 @@ floating_layout = layout.Floating(float_rules=[
         Match(role='pop-up'),
         Match(wm_class='zoom'),
         Match(wm_class='conky-semi'),
+        Match(wm_class='qemu'),
         Match(title='Quick Format Citation'), # Zotero citation
     ],
     border_width=2,
@@ -444,7 +445,8 @@ keys.extend([
     ),
     Key(
         [mod, 'shift'], 'Return',
-        lazy.spawn('rofi -show run'),
+        # lazy.spawn('rofi -show run'),
+        lazy.spawn('rofi -show combi -modes combi -combi-modes "drun,run"'),
         desc='Run rofi'
     ),
     Key(
