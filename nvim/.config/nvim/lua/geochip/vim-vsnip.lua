@@ -11,8 +11,8 @@ vim.api.nvim_set_keymap('s', '<C-l>', 'vsnip#available(1) ? \'<Plug>(vsnip-expan
 -- Jump forward or backward
 vim.api.nvim_set_keymap('i', '<C-l>', 'vsnip#jumpable(1) ? \'<Plug>(vsnip-jump-next)\' : \'<Tab>\'', { expr = true })
 vim.api.nvim_set_keymap('s', '<C-l>', 'vsnip#jumpable(1) ? \'<Plug>(vsnip-jump-next)\' : \'<Tab>\'', { expr = true })
-vim.api.nvim_set_keymap('i', '<C-l>', 'vsnip#jumpable(-1) ? \'<Plug>(vsnip-jump-prev)\' : \'<S-Tab>\'', { expr = true })
-vim.api.nvim_set_keymap('s', '<C-l>', 'vsnip#jumpable(-1) ? \'<Plug>(vsnip-jump-prev)\' : \'<S-Tab>\'', { expr = true })
+vim.api.nvim_set_keymap('i', '<C-h>', 'vsnip#jumpable(-1) ? \'<Plug>(vsnip-jump-prev)\' : \'<S-Tab>\'', { expr = true })
+vim.api.nvim_set_keymap('s', '<C-h>', 'vsnip#jumpable(-1) ? \'<Plug>(vsnip-jump-prev)\' : \'<S-Tab>\'', { expr = true })
 
 -- Select or cut text to use as $TM_SELECTED_TEXT in the next snippet.
 -- See https://github.com/hrsh7th/vim-vsnip/pull/50
