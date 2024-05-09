@@ -13,24 +13,20 @@ require('sets')
 -- GLOBAL VARIABLES
 vim.g.mapleader = ' '
 
-vim.g.indentLine_showFirstIndentLevel = 1
 vim.g.airline_powerline_fonts = 1
-vim.g['airline#extensions#tabline#enabled'] = 1
 
 
 -- COLORSCHEME SETUP
--- vim.g.ayucolor = 'mirage'
-vim.cmd('colorscheme gruvbox')
 vim.o.background = 'dark'
 vim.o.termguicolors = true
 
-vim.cmd('highlight Normal guibg=None')
+vim.cmd('colorscheme catppuccin-mocha')
 
+-- Diagnostics
 vim.cmd('highlight LspDiagnosticsDefaultError guifg=red gui=bold')
 vim.cmd('highlight LspDiagnosticsDefaultWarning guifg=orange gui=bold')
 vim.cmd('highlight LspDiagnosticsDefaultInformation guifg=yellow gui=bold')
 vim.cmd('highlight LspDiagnosticsDefaultHint guifg=green gui=bold')
-
 
 -- KEYMAPPINGS
 vim.api.nvim_set_keymap('n', '<leader>w', ':w<CR>', { noremap = true })
@@ -48,29 +44,34 @@ vim.api.nvim_set_keymap('n', 'n', 'nzzzv', { noremap = true })
 vim.api.nvim_set_keymap('n', 'N', 'Nzzzv', { noremap = true })
 vim.api.nvim_set_keymap('n', 'J', 'mzJ`z', { noremap = true })
 
+vim.api.nvim_set_keymap('n', '<leader>f', ':lua vim.diagnostic.open_float()<CR>', { noremap = true })
+
 -- Buffers
 vim.api.nvim_set_keymap('n', '<C-n>', ':bnext<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<C-p>', ':bprevious<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<M-d>', ':bdelete<CR>', { noremap = true })
 
--- Debugging
-vim.api.nvim_set_keymap('n', '<F5>', [[:lua require('dap').continue()<CR>]], { noremap = true })
-vim.api.nvim_set_keymap('n', '<F2>', [[:lua require('dap').step_into()<CR>]], { noremap = true })
-vim.api.nvim_set_keymap('n', '<F3>', [[:lua require('dap').step_over()<CR>]], { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>b', [[:lua require('dap').toggle_breakpoint()<CR>]], { noremap = true })
-vim.api.nvim_set_keymap('n', '<leader>B', [[:lua require('dap').set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>]], { noremap = true })
+-- Obsidian
+vim.api.nvim_set_keymap('n', '<leader>oq', ':ObsidianQuickSwitch<CR>', { noremap = true })
 
 -- NERDCommenter
 vim.api.nvim_set_keymap('n', '<C-_>', '<Plug>NERDCommenterToggle', { noremap = true })
 vim.api.nvim_set_keymap('x', '<C-_>', '<Plug>NERDCommenterToggle', { noremap = true })
+
+-- Netrw
+vim.api.nvim_set_keymap('n', '<leader>e', ':Explore<CR>', { noremap = true })
 
 
 -- AUTOCOMMANDS
 vim.cmd([[
     augroup GEOCHIP
         autocmd!
+        autocmd BufWritePre * %s/\s\+$//e
         autocmd BufWritePost plugins.lua source <afile> | PackerCompile
         autocmd TextYankPost * lua vim.highlight.on_yank({ on_visual = false })
+        autocmd FileType cpp setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+        autocmd FileType c setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+        autocmd FileType go setlocal noexpandtab
         autocmd FileType html setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
         autocmd FileType htmldjango setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
         autocmd FileType css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
@@ -80,4 +81,3 @@ vim.cmd([[
 
 -- PLUGINS CONFIGS
 require('geochip')
-
