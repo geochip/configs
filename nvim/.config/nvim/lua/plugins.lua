@@ -15,9 +15,6 @@ return require('packer').startup(function(use)
     use('hrsh7th/cmp-nvim-lua')
     use('hrsh7th/cmp-buffer')
     use('hrsh7th/cmp-path')
-    -- Deprecated
-    --use('williamboman/nvim-lsp-installer')
-    --use({'jose-elias-alvarez/null-ls.nvim'})
     use({
         "williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim",
@@ -30,11 +27,6 @@ return require('packer').startup(function(use)
 
     -- Rust
     use 'simrat39/rust-tools.nvim'
-
-    -- Debugging
-    use('mfussenegger/nvim-dap')
-    use ({ 'rcarriga/nvim-dap-ui', requires = {'mfussenegger/nvim-dap'} })
-    use('mfussenegger/nvim-dap-python')
 
     -- Better syntax highlighting
     use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
@@ -53,19 +45,46 @@ return require('packer').startup(function(use)
         run = function() vim.fn["mkdp#util#install"]() end,
     })
 
+    -- Obsidian integration
+    use({
+        "epwalsh/obsidian.nvim",
+        tag = "*",  -- recommended, use latest release instead of latest commit
+        requires = {
+            -- Required.
+            "nvim-lua/plenary.nvim",
+        },
+        config = function()
+            require("obsidian").setup({
+                workspaces = {
+                    {
+                        name = "work",
+                        path = "~/Dropbox/work_vault",
+                    },
+                },
+            })
+        end,
+    })
+
     -- Telescope fuzzy finder
     use('nvim-lua/plenary.nvim')
     use('nvim-telescope/telescope.nvim')
     use('nvim-telescope/telescope-fzy-native.nvim')
 
+    -- Harpoon
+    use({
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        requires = { {"nvim-lua/plenary.nvim"} }
+    })
+
     -- UI stuff
     use('gruvbox-community/gruvbox')
+    use({ 'catppuccin/nvim', as = 'catppuccin' })
     use('ayu-theme/ayu-vim')
     use('vim-airline/vim-airline')
 
     use('rcarriga/nvim-notify')
-    --use('Yggdroot/indentLine')
-    use("lukas-reineke/indent-blankline.nvim")
+    --use("lukas-reineke/indent-blankline.nvim")
     use('ryanoasis/vim-devicons')
     use('kyazdani42/nvim-web-devicons')
     --use('norcalli/nvim-colorizer.lua')
