@@ -48,7 +48,7 @@ return require('packer').startup(function(use)
     -- Obsidian integration
     use({
         "epwalsh/obsidian.nvim",
-        tag = "*",  -- recommended, use latest release instead of latest commit
+        tag = "*", -- recommended, use latest release instead of latest commit
         requires = {
             -- Required.
             "nvim-lua/plenary.nvim",
@@ -74,14 +74,19 @@ return require('packer').startup(function(use)
     use({
         "ThePrimeagen/harpoon",
         branch = "harpoon2",
-        requires = { {"nvim-lua/plenary.nvim"} }
+        requires = { { "nvim-lua/plenary.nvim" } }
     })
 
     -- UI stuff
     use('gruvbox-community/gruvbox')
     use({ 'catppuccin/nvim', as = 'catppuccin' })
     use('ayu-theme/ayu-vim')
-    use('vim-airline/vim-airline')
+    --use('vim-airline/vim-airline')
+    use({
+        'nvim-lualine/lualine.nvim',
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true },
+        config = function() require('lualine').setup() end
+    })
 
     use('rcarriga/nvim-notify')
     --use("lukas-reineke/indent-blankline.nvim")
@@ -95,4 +100,3 @@ return require('packer').startup(function(use)
     --use('nvim-lua/popup.nvim')
     --use('ray-x/lsp_signature.nvim')
 end)
-
