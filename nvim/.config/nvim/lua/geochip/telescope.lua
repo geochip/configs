@@ -27,6 +27,7 @@ vim.api.nvim_set_keymap('n', '<leader>pg', [[:lua require('telescope.builtin').l
 vim.api.nvim_set_keymap('n', '<leader>pf', [[:lua require('telescope.builtin').find_files()<CR>]], { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>pb', [[:lua require('telescope.builtin').buffers()<CR>]], { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>ps', [[:lua require('telescope.builtin').lsp_document_symbols()<CR>]], { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>pk', [[:lua require('telescope.builtin').keymaps()<CR>]], { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>pn', [[:lua require('telescope').extensions.notify.notify()<CR>]], { noremap = true })
 
 return M
