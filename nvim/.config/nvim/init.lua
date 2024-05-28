@@ -42,7 +42,7 @@ vim.api.nvim_set_keymap('n', 'n', 'nzzzv', { noremap = true })
 vim.api.nvim_set_keymap('n', 'N', 'Nzzzv', { noremap = true })
 vim.api.nvim_set_keymap('n', 'J', 'mzJ`z', { noremap = true })
 
-vim.api.nvim_set_keymap('n', '<leader>f', ':lua vim.diagnostic.open_float()<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>f', ':lua vim.diagnostic.open_float({border="rounded"})<CR>', { noremap = true })
 
 -- Buffers
 vim.api.nvim_set_keymap('n', '<C-n>', ':bnext<CR>', { noremap = true })
