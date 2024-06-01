@@ -51,7 +51,7 @@ text = "CellBackground"
 TERM = "alacritty"
 
 [font]
-size = 13.0
+size = 11.0
 
 [font.bold]
 family = "RobotoMonoNerdFont"
