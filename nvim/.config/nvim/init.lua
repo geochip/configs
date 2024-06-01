@@ -70,6 +70,8 @@ vim.cmd([[
         autocmd FileType cpp setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
         autocmd FileType c setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
         autocmd FileType go setlocal noexpandtab
+        autocmd FileType sh setlocal noexpandtab
+        autocmd FileType bash setlocal noexpandtab
         autocmd FileType html setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
         autocmd FileType htmldjango setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
         autocmd FileType css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
