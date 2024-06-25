@@ -5,23 +5,31 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
-# alias ls='ls --color=auto'
-
 PS1="\[\e[1;32m\][\u\[\e[m\]\[\e[1;33m\]@\[\e[m\]\[\e[1;32m\]\h\[\e[m\] \[\e[1;3;34m\]\W\[\e[m\]\[\e[1;32m\]]\$\[\e[m\] "
-export PS1
 
+function add_to_PATH_first() {
+    export PATH="$1:$PATH"
+}
 
-export PATH="$PATH:$HOME/.local/bin"
-export EDITOR=nvim
+## BASH HISTORY
+# append history entries..
+shopt -s histappend
+HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
+HISTSIZE=5000
+HISTFILESIZE=10000
+# After each command, save and reload history
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
 export DOTFILES=$HOME/dev/configs/nvim/.config/nvim
-export STOW_FOLDERS="nvim,alacritty,bash,nitrogen,picom,qtile,i3,i3status,awesome,polybar,tmux,conky"
+export EDITOR=nvim
+export STOW_FOLDERS='alacritty,tmux,nvim,bash'
+export MANPAGER="sh -c 'col -bx | bat -l man -p'"
+export MANROFFOPT="-c"
 
-# set -o vi
-
-alias ls='exa --group-directories-first'
+alias ls='ls --group-directories-first --color'
+alias ll='ls -la'
 alias grep='grep --color=auto'
+alias diff='diff --color'
 
-# Quartus stuff
-# export QSYS_ROOTDIR="/home/geochip/.cache/paru/clone/quartus-free/pkg/quartus-free-quartus/opt/intelFPGA/21.1/quartus/sopc_builder/bin"
-# export PATH="$PATH:$HOME/Applications/intelFPGA_lite/17.1/quartus/bin"
-
+source <(fzf --bash)
+eval "$(starship init bash)"
