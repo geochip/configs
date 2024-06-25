@@ -26,7 +26,21 @@ local handlers = {
 
 -- Enable the following language servers
 local lspconfig = require('lspconfig')
-local servers = { 'lua_ls', 'clangd', 'pyright', 'rust_analyzer', 'zls', 'gopls', 'bashls', 'intelephense', 'lemminx', 'tsserver', 'java_language_server' }
+local servers = {
+  'lua_ls',
+  'clangd',
+  'pyright',
+  'rust_analyzer',
+  'zls',
+  'gopls',
+  'bashls',
+  'intelephense',
+  'lemminx',
+  'tsserver',
+  'java_language_server',
+  'cssls',
+  'cmake',
+}
 for _, server in ipairs(servers) do
   lspconfig[server].setup({
     on_attach = on_attach,
