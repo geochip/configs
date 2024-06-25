@@ -24,6 +24,7 @@ end
 vim.api.nvim_set_keymap('n', '<leader>pd', [[:lua require('geochip.telescope').search_dotfiles()<CR>]], { noremap = true })
 --vim.api.nvim_set_keymap('n', '<leader>pg', [[:lua require('telescope.builtin').grep_string({ search = vim.fn.input("Grep for > ")})<CR>]], { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>pg', [[:lua require('telescope.builtin').live_grep()<CR>]], { noremap = true })
+vim.api.nvim_set_keymap('n', '<leader>pe', [[:lua require('telescope.builtin').diagnostics()<CR>]], { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>pf', [[:lua require('telescope.builtin').find_files()<CR>]], { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>pb', [[:lua require('telescope.builtin').buffers()<CR>]], { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>ps', [[:lua require('telescope.builtin').lsp_document_symbols()<CR>]], { noremap = true })
