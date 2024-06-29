@@ -67,19 +67,6 @@ vim.cmd([[
         autocmd BufWritePre * %s/\s\+$//e
         autocmd BufWritePost plugins.lua source <afile> | PackerCompile
         autocmd TextYankPost * lua vim.highlight.on_yank({ on_visual = false })
-        autocmd FileType cpp setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-        autocmd FileType c setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
-        autocmd FileType go setlocal noexpandtab
-        autocmd FileType sh setlocal noexpandtab
-        autocmd FileType bash setlocal noexpandtab
-        autocmd FileType xml setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-        autocmd FileType html setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-        autocmd FileType htmldjango setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-        autocmd FileType javascript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-        autocmd FileType javascriptreact setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-        autocmd FileType typescript setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-        autocmd FileType typescriptreact setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
-        autocmd FileType css setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
     augroup END
 ]])
 
