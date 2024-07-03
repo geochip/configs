@@ -60,6 +60,12 @@ vim.api.nvim_set_keymap('x', '<C-_>', '<Plug>NERDCommenterToggle', { noremap = t
 vim.api.nvim_set_keymap('n', '<leader>e', ':Explore<CR>', { noremap = true })
 
 
+-- Python formatting
+vim.api.nvim_set_keymap('n', '<leader>b', ':!black -q -l 79 %<CR>', { noremap = true })
+
+-- Neogit
+vim.api.nvim_set_keymap('n', '<leader>n', ':Neogit<CR>', { noremap = true })
+
 -- AUTOCOMMANDS
 vim.cmd([[
     augroup GEOCHIP

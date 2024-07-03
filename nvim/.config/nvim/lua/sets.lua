@@ -27,7 +27,7 @@ vim.o.listchars = 'trail:·,tab:  ,extends:>,precedes:<'
 
 vim.o.guicursor = nil
 
-vim.wo.colorcolumn = '72'
+vim.wo.colorcolumn = '79'
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.wo.cursorline = true

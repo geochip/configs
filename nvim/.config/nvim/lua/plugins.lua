@@ -37,7 +37,23 @@ return require('packer').startup(function(use)
 
     -- Git integration
     use('tpope/vim-fugitive')
-    use('airblade/vim-gitgutter')
+    use({
+        'lewis6991/gitsigns.nvim',
+        config = function() require('gitsigns').setup() end,
+    })
+    use({
+        'NeogitOrg/neogit',
+        requires = {
+            'nvim-lua/plenary.nvim', -- required
+            'sindrets/diffview.nvim', -- optional - Diff integration
+
+            -- Only one of these is needed, not both.
+            'nvim-telescope/telescope.nvim', -- optional
+            --'ibhagwan/fzf-lua',      -- optional
+        },
+        config = function() require('neogit').setup({}) end,
+    })
+    --use('airblade/vim-gitgutter')
 
     -- Markdown preview
     use({
@@ -88,7 +104,7 @@ return require('packer').startup(function(use)
         config = function() require('lualine').setup() end
     })
 
-    use('rcarriga/nvim-notify')
+    --use('rcarriga/nvim-notify')
     --use("lukas-reineke/indent-blankline.nvim")
     use('ryanoasis/vim-devicons')
     use('kyazdani42/nvim-web-devicons')
