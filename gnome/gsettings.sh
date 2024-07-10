@@ -17,6 +17,7 @@ gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,m
 gsettings set org.gnome.shell favorite-apps "[]"
 
 gsettings set org.gnome.desktop.wm.keybindings close "['<Super>q']"
+gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "['<Super>f']"
 
 for i in {1..9}; do
 	gsettings set org.gnome.shell.keybindings switch-to-application-$i "[]"
