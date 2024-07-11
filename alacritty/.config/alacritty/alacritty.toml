@@ -54,19 +54,19 @@ TERM = "alacritty"
 size = 11.0
 
 [font.bold]
-family = "RobotoMonoNerdFont"
+family = "JetBrainsMonoNerdFont"
 style = "Bold"
 
 [font.bold_italic]
-family = "RobotoMonoNerdFont"
+family = "JetBrainsMonoNerdFont"
 style = "Bold Italic"
 
 [font.italic]
-family = "RobotoMonoNerdFont"
+family = "JetBrainsMonoNerdFont"
 style = "Italic"
 
 [font.normal]
-family = "RobotoMonoNerdFont"
+family = "JetBrainsMonoNerdFont"
 style = "Regular"
 
 [shell]
