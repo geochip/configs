@@ -66,6 +66,9 @@ vim.api.nvim_set_keymap('n', '<leader>b', ':!black -q -l 79 %<CR>', { noremap = 
 -- Neogit
 vim.api.nvim_set_keymap('n', '<leader>n', ':Neogit<CR>', { noremap = true })
 
+-- C++
+vim.api.nvim_set_keymap('n', '<leader>k', ':!./build.sh<CR>', { noremap = true })
+
 -- AUTOCOMMANDS
 vim.cmd([[
     augroup GEOCHIP
