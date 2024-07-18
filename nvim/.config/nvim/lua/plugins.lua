@@ -33,7 +33,12 @@ return require('packer').startup(function(use)
     use('nvim-treesitter/playground')
 
     -- Mappings for commenting code
-    use('preservim/nerdcommenter')
+    use({
+        'numToStr/Comment.nvim',
+        config = function()
+            require('Comment').setup()
+        end
+    })
 
     -- Git integration
     use('tpope/vim-fugitive')
