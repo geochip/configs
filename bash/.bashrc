@@ -15,8 +15,9 @@ function add_to_PATH_first() {
 # append history entries..
 shopt -s histappend
 HISTTIMEFORMAT="%Y-%m-%d %H:%M:%S "
-HISTSIZE=5000
-HISTFILESIZE=10000
+HISTSIZE=20000
+# Unlimited history file
+HISTFILESIZE=
 # After each command, save and reload history
 export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
@@ -25,6 +26,8 @@ export EDITOR=nvim
 export STOW_FOLDERS='alacritty,tmux,nvim,bash'
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export MANROFFOPT="-c"
+
+add_to_PATH_first "$HOME/.local/bin"
 
 alias ls='ls --group-directories-first --color'
 alias ll='ls -la'
