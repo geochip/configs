@@ -1,7 +1,7 @@
 {
     "modules-left": ["hyprland/workspaces"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "idle_inhibitor", "custom/scratchpad-indicator", "pulseaudio", "network", "custom/power"],
+    "modules-right": ["tray", "idle_inhibitor", "hyprland/language","custom/scratchpad-indicator", "pulseaudio", "network", "battery","custom/power"],
 
     "idle_inhibitor": {
         "format": "{icon}",
