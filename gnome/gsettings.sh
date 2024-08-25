@@ -18,21 +18,27 @@ gsettings set org.gnome.shell favorite-apps "[]"
 
 gsettings set org.gnome.desktop.wm.keybindings switch-input-source "[]"
 gsettings set org.gnome.desktop.wm.keybindings switch-input-source-backward "[]"
-gsettings set org.gnome.desktop.wm.keybindings close "['<Super>q']"
+gsettings set org.gnome.desktop.wm.keybindings close "['<Super>c']"
 gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "['<Super>f']"
 
 for i in {1..9}; do
 	gsettings set org.gnome.shell.keybindings switch-to-application-$i "[]"
 done
 
-gsettings set org.gnome.desktop.wm.preferences num-workspaces '9'
+gsettings set org.gnome.desktop.wm.preferences num-workspaces '6'
 gsettings set org.gnome.mutter dynamic-workspaces 'false'
 gsettings set org.gnome.shell.app-switcher current-workspace-only 'true'
 
-for i in {1..9}; do
-	gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-$i "['<Super>$i']"
-done
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Super>1']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-2 "['<Super>2']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-3 "['<Super>3']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-4 "['<Super>q']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-5 "['<Super>w']"
+gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-6 "['<Super>e']"
 
-for i in {1..9}; do
-	gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-$i "['<Shift><Super>$i']"
-done
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-1 "['<Shift><Super>1']"
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-2 "['<Shift><Super>2']"
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-3 "['<Shift><Super>3']"
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-4 "['<Shift><Super>q']"
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-5 "['<Shift><Super>w']"
+gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-6 "['<Shift><Super>e']"
