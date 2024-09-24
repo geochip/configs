@@ -36,7 +36,7 @@ local servers = {
   'bashls',
   'intelephense',
   'lemminx',
-  'tsserver',
+  'ts_ls',
   'java_language_server',
   'cssls',
   'cmake',

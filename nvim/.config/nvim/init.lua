@@ -73,6 +73,7 @@ vim.api.nvim_set_keymap('n', '<leader>k', ':!./build.sh<CR>', { noremap = true }
 vim.cmd([[
     augroup GEOCHIP
         autocmd!
+        autocmd BufNewFile,BufRead /dev/shm/gopass* setlocal noswapfile nobackup noundofile shada=""
         autocmd BufWritePre * %s/\s\+$//e
         autocmd BufWritePost plugins.lua source <afile> | PackerCompile
         autocmd TextYankPost * lua vim.highlight.on_yank({ on_visual = false })

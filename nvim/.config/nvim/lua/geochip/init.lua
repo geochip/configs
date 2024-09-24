@@ -1,6 +1,8 @@
 require('geochip.nvim-cmp')
 require('geochip.mason')
 require('geochip.lsp')
+require("geochip.conform")
+require("geochip.nvim-lint")
 require('geochip.telescope')
 require('geochip.nvim-autopairs')
 require('geochip.tree-sitter')

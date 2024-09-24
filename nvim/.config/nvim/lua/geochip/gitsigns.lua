@@ -43,6 +43,8 @@ require('gitsigns').setup({
         end)
 
         -- Actions
+        map('n', '<leader>hn', ':Gitsigns next_hunk<CR>')
+        map('n', '<leader>hp', ':Gitsigns prev_hunk<CR>')
         map('n', '<leader>hs', ':Gitsigns stage_hunk<CR>')
         map('n', '<leader>hr', ':Gitsigns reset_hunk<CR>')
         map('v', '<leader>hs', [[:lua require('gitsigns').stage_hunk { vim.fn.line('.'), vim.fn.line('v') }<CR>]])
@@ -50,7 +52,7 @@ require('gitsigns').setup({
         map('n', '<leader>hS', ':Gitsigns stage_buffer<CR>')
         map('n', '<leader>hu', ':Gitsigns undo_stage_hunk<CR>')
         map('n', '<leader>hR', ':Gitsigns reset_buffer<CR>')
-        map('n', '<leader>hp', ':Gitsigns preview_hunk<CR>')
+        map('n', '<leader>hP', ':Gitsigns preview_hunk<CR>')
         map('n', '<leader>hb', [[:lua require('gitsigns').blame_line { full = true }<CR>]])
         map('n', '<leader>tb', ':Gitsigns toggle_current_line_blame<CR>')
         --map('n', '<leader>hd', [[:lua require('gitsigns').diffthis()<CR>]])
