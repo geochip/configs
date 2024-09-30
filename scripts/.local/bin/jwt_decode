@@ -1,0 +1,27 @@
+#!/usr/bin/python3
+
+import fileinput
+import json
+import subprocess
+from datetime import datetime
+
+import jwt
+
+encoded_token_string = ""
+for line in fileinput.input():
+    encoded_token_string += line
+
+decoded_token = jwt.decode(
+    encoded_token_string.strip(), options={"verify_signature": False}
+)
+
+for date_obj in ("exp", "iat", "auth_time"):
+    if date_obj in decoded_token.keys():
+        decoded_token[f"{date_obj}_original"] = decoded_token[date_obj]
+        decoded_token[f"{date_obj}"] = datetime.fromtimestamp(
+            decoded_token[date_obj]
+        ).strftime("%Y-%m-%d %H:%M:%S")
+
+json_string = json.dumps(decoded_token)
+
+subprocess.run(f"echo '{json_string}' | jq", shell=True)
