@@ -2,10 +2,10 @@
 
 import fileinput
 import json
-import subprocess
 from datetime import datetime
 
 import jwt
+import rich
 
 encoded_token_string = ""
 for line in fileinput.input():
@@ -24,4 +24,4 @@ for date_obj in ("exp", "iat", "auth_time"):
 
 json_string = json.dumps(decoded_token)
 
-subprocess.run(f"echo '{json_string}' | jq", shell=True)
+rich.print_json(json_string)
