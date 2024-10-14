@@ -28,6 +28,7 @@ done
 
 gsettings set org.gnome.desktop.wm.preferences num-workspaces '6'
 gsettings set org.gnome.mutter dynamic-workspaces 'false'
+gsettings set org.gnome.mutter overlay-key ''
 gsettings set org.gnome.shell.app-switcher current-workspace-only 'true'
 
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-1 "['<Super>1']"
