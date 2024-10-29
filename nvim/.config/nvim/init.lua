@@ -29,6 +29,8 @@ vim.cmd('highlight LspDiagnosticsDefaultInformation guifg=yellow gui=bold')
 vim.cmd('highlight LspDiagnosticsDefaultHint guifg=green gui=bold')
 
 -- KEYMAPPINGS
+vim.api.nvim_set_keymap('n', '<leader>y', '"+y', { noremap = true })
+
 vim.api.nvim_set_keymap('n', '<leader>u', ':nohlsearch<CR>', { noremap = true })
 vim.api.nvim_set_keymap('n', '<leader>rt', [[mz:%s/ \+$//g<CR>`z]], { noremap = true })
 
