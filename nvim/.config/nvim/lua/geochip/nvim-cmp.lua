@@ -5,6 +5,10 @@ require('cmp_nvim_lsp').setup()
 
 local cmp = require('cmp')
 cmp.setup({
+  completion = {
+    autocomplete = false,
+  },
+
   snippet = {
     expand = function(args)
       vim.fn["vsnip#anonymous"](args.body)
@@ -30,10 +34,10 @@ cmp.setup({
   }),
 
   sources = cmp.config.sources({
-      { name = 'nvim_lsp' },
-      { name = 'nvim_lsp_signature_help' },
-      { name = 'nvim_lua' },
-      { name = 'vsnip' },
+--      { name = 'nvim_lsp' },
+--      { name = 'nvim_lsp_signature_help' },
+--      { name = 'nvim_lua' },
+--      { name = 'vsnip' },
       { name = 'buffer' },
       { name = 'path' }
   }),
