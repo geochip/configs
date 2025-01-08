@@ -44,3 +44,5 @@ gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-3 "['<Shift><Su
 gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-4 "['<Shift><Super>q']"
 gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-5 "['<Shift><Super>w']"
 gsettings set org.gnome.desktop.wm.keybindings move-to-workspace-6 "['<Shift><Super>e']"
+
+./set_binding 'Launch Kitty' 'kitty' '<Super>t'
