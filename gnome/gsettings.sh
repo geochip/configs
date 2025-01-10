@@ -13,6 +13,7 @@ gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('xkb', '
 gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
 
 gsettings set org.gnome.desktop.wm.preferences button-layout 'appmenu:minimize,maximize,close'
+gsettings set org.gnome.desktop.wm.preferences resize-with-right-button 'true'
 
 gsettings set org.gnome.shell favorite-apps "[]"
 
