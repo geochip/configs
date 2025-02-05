@@ -3,9 +3,9 @@ return require("packer").startup(function(use)
 
 	-- LSP and completion stuff
 	use("neovim/nvim-lspconfig")
-	use("windwp/nvim-autopairs")
-	use("hrsh7th/vim-vsnip")
-	use("hrsh7th/vim-vsnip-integ")
+	-- use("windwp/nvim-autopairs")
+	-- use("hrsh7th/vim-vsnip")
+	-- use("hrsh7th/vim-vsnip-integ")
 	-- Completion framefork
 	use("hrsh7th/nvim-cmp")
 	-- LSP completion source

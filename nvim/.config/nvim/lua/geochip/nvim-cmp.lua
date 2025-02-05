@@ -9,11 +9,11 @@ cmp.setup({
     autocomplete = false,
   },
 
-  snippet = {
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
+  -- snippet = {
+  --   expand = function(args)
+  --     vim.fn["vsnip#anonymous"](args.body)
+  --   end,
+  -- },
 
   window = {
     completion = cmp.config.window.bordered(),
@@ -48,7 +48,7 @@ cmp.setup({
         menu = {
             nvim_lsp = '[LSP]',
             nvim_lua = '[api]',
-            vsnip = '[snip]',
+            -- vsnip = '[snip]',
             buffer = '[buf]',
             path = '[path]',
         }
