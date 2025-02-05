@@ -11,6 +11,8 @@ encoded_token_string = ""
 for line in fileinput.input():
     encoded_token_string += line
 
+header = jwt.get_unverified_header(encoded_token_string.strip())
+
 decoded_token = jwt.decode(
     encoded_token_string.strip(), options={"verify_signature": False}
 )
@@ -22,6 +24,8 @@ for date_obj in ("exp", "iat", "auth_time"):
             decoded_token[date_obj]
         ).strftime("%Y-%m-%d %H:%M:%S")
 
-json_string = json.dumps(decoded_token)
+json_string = json.dumps(header)
+rich.print_json(json_string)
 
+json_string = json.dumps(decoded_token)
 rich.print_json(json_string)
