@@ -60,6 +60,7 @@ vim.api.nvim_set_keymap('x', '<C-_>', '<Plug>NERDCommenterToggle', { noremap = t
 
 -- Netrw
 vim.api.nvim_set_keymap('n', '<leader>e', ':Explore<CR>', { noremap = true })
+vim.api.nvim_set_keymap('n', '-', '<CMD>Oil<CR>', { noremap = true })
 
 
 -- Python formatting

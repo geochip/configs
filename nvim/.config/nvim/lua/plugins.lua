@@ -123,6 +123,13 @@ return require("packer").startup(function(use)
 		end,
 	})
 	use("mbbill/undotree")
+	use({
+		"stevearc/oil.nvim",
+		requires = { "nvim-tree/nvim-web-devicons" },
+		config = function()
+			require("oil").setup()
+		end,
+	})
 
 	--use('rcarriga/nvim-notify')
 	--use("lukas-reineke/indent-blankline.nvim")
