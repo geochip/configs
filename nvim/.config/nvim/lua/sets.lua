@@ -25,7 +25,7 @@ vim.o.scrolloff = 8
 vim.o.cmdheight = 2
 vim.o.listchars = 'trail:·,tab:  ,extends:>,precedes:<'
 
-vim.o.guicursor = nil
+vim.o.guicursor = ""
 
 vim.wo.colorcolumn = '79'
 vim.wo.number = true

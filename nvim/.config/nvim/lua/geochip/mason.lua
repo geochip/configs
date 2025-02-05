@@ -13,5 +13,7 @@ require("mason-lspconfig").setup({
         "lua_ls",
         "bashls",
         "pyright",
+        "html",
+        "ts_ls",
     }
 })
