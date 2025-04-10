@@ -28,10 +28,15 @@ def main():
         text=True,
         encoding="utf-8",
     )
-    custom_bindings = res.stdout.strip()[1:-1].replace("'", "").split(", ")
 
-    # the last char in custom_binding is '/'
-    schema_path = custom_bindings[-1]
+    gsettings_output = res.stdout.strip()
+    if gsettings_output == "@as []":
+        custom_bindings = []
+        schema_path = "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+    else:
+        custom_bindings = gsettings_output[1:-1].replace("'", "").split(", ")
+        schema_path = custom_bindings[-1]
+
     schema_path_base, custom_name = schema_path[:-1].rsplit("/", 1)
     match = re.match(r"custom(?P<number>\d+)", custom_name)
     if not match:

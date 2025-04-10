@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 gsettings set org.gnome.desktop.interface clock-format '24h'
 gsettings set org.gnome.desktop.interface clock-show-seconds 'true'
@@ -9,6 +9,7 @@ gsettings set org.gnome.desktop.interface enable-animations 'false'
 gsettings set org.gnome.desktop.interface show-battery-percentage 'true'
 
 gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('xkb', 'ru')]"
+gsettings set org.gnome.desktop.input-sources xkb-options "['grp:caps_toggle']"
 
 gsettings set org.gnome.desktop.peripherals.mouse accel-profile 'flat'
 
@@ -24,7 +25,7 @@ gsettings set org.gnome.desktop.wm.keybindings toggle-fullscreen "['<Super>f']"
 gsettings set org.gnome.desktop.wm.keybindings always-on-top "['<Super>g']"
 
 for i in {1..9}; do
-	gsettings set org.gnome.shell.keybindings switch-to-application-$i "[]"
+	gsettings set org.gnome.shell.keybindings "switch-to-application-$i" "[]"
 done
 
 gsettings set org.gnome.desktop.wm.preferences num-workspaces '6'
