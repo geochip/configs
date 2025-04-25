@@ -132,6 +132,12 @@ return require("packer").startup(function(use)
 			require("oil").setup()
 		end,
 	})
+	use({
+		"j-hui/fidget.nvim",
+		config = function()
+			require("fidget").setup()
+		end,
+	})
 	-- use({
 	-- 	"oberblastmeister/zoom.nvim",
 	-- 	config = function()
