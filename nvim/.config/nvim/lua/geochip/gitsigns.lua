@@ -15,6 +15,9 @@ require('gitsigns').setup({
     auto_attach         = true,
     attach_to_untracked = false,
     current_line_blame  = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+    current_line_blame_opts = {
+        delay = 100
+    },
     sign_priority       = 10,
     on_attach           = function(bufnr)
         local gitsigns = require('gitsigns')

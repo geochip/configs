@@ -13,7 +13,7 @@ conform.setup({
 
 vim.keymap.set({ "n", "v" }, "<leader>mp", function()
 	conform.format({
-		timeout_ms = 500,
+		timeout_ms = 1000,
 		lsp_format = "fallback",
 	})
 end, { desc = "Format file or range (in visual mode)" })

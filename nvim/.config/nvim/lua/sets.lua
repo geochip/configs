@@ -2,8 +2,6 @@
 vim.cmd('syntax enable')
 vim.cmd('filetype plugin indent on')
 
-vim.cmd('packadd termdebug')
-
 local indent = 4
 vim.bo.tabstop = indent
 vim.bo.softtabstop = indent

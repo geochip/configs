@@ -70,6 +70,10 @@ vim.api.nvim_set_keymap('n', '<leader>b', ':!black -q -l 79 %<CR>', { noremap = 
 -- Neogit
 vim.api.nvim_set_keymap('n', '<leader>n', ':Neogit<CR>', { noremap = true })
 
+vim.api.nvim_set_keymap('n', '<leader>s', 'iSigned-off-by: Alexander Stepchenko <geochip@altlinux.org><ESC>', { noremap = true })
+
+vim.api.nvim_set_keymap('', '<leader>dor', ':diffget RE<CR>', { noremap = true })
+
 -- AUTOCOMMANDS
 vim.cmd([[
     augroup GEOCHIP
@@ -78,6 +82,7 @@ vim.cmd([[
         autocmd BufWritePre * %s/\s\+$//e
         autocmd BufWritePost plugins.lua source <afile> | PackerCompile
         autocmd TextYankPost * lua vim.highlight.on_yank({ on_visual = false })
+        autocmd BufRead *.ovf set filetype=xml
     augroup END
 ]])
 
