@@ -26,7 +26,7 @@ export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
 
 export DOTFILES=$HOME/dev/configs/nvim/.config/nvim
 export EDITOR=nvim
-export STOW_FOLDERS='kitty,tmux,nvim,bash,scripts'
+export STOW_FOLDERS='kitty,tmux,nvim,bash,scripts,hypr,waybar'
 export MANPAGER="sh -c 'col -bx | bat -l man -p'"
 export MANROFFOPT="-c"
 
@@ -40,4 +40,5 @@ alias diff='diff --color'
 alias vim='nvim'
 
 source <(fzf --bash)
-#eval "$(starship init bash)"
+eval "$(starship init bash)"
+. "$HOME/.cargo/env"

@@ -4,5 +4,7 @@ vim.bo.softtabstop = indent
 vim.bo.shiftwidth = indent
 vim.bo.expandtab = false
 
-vim.bo.makeprg = 'go build'
-vim.api.nvim_set_keymap('n', '<leader>k', ':make<CR>', { noremap = true })
+vim.wo.colorcolumn = "89"
+
+vim.bo.makeprg = "go build"
+vim.api.nvim_set_keymap("n", "<leader>k", ":make<CR>", { noremap = true })

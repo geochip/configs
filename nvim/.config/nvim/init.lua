@@ -74,6 +74,9 @@ vim.api.nvim_set_keymap('n', '<leader>s', 'iSigned-off-by: Alexander Stepchenko 
 
 vim.api.nvim_set_keymap('', '<leader>dor', ':diffget RE<CR>', { noremap = true })
 
+-- Man
+-- vim.keymap.set("n", "K", ":tab Man<CR>", { noremap = true })
+
 -- AUTOCOMMANDS
 vim.cmd([[
     augroup GEOCHIP

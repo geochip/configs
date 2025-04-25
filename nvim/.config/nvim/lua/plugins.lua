@@ -22,6 +22,8 @@ return require("packer").startup(function(use)
 	})
 	use("onsails/lspkind.nvim")
 
+	-- use("ludovicchabant/vim-gutentags")
+
 	-- For lua language server
 	-- use('tjdevries/nlua.nvim')
 
@@ -130,6 +132,59 @@ return require("packer").startup(function(use)
 			require("oil").setup()
 		end,
 	})
+	-- use({
+	-- 	"oberblastmeister/zoom.nvim",
+	-- 	config = function()
+	-- 		vim.keymap.set("n", "<leader>z", function()
+	-- 			vim.cmd("Zoom")
+	-- 		end, { silent = true, nowait = true })
+	-- 	end
+	-- })
+	-- use({
+	-- 	'nyngwang/NeoZoom.lua',
+	-- 	config = function ()
+	-- 		require("neo-zoom").setup({
+	-- 			popup = {
+	-- 			  enabled = true,
+	-- 			  exclude_filetypes = { "man" },
+	-- 			  exclude_buftypes = {},
+	-- 			},
+	-- 			exclude_buftypes = { "terminal" },
+	-- 			-- exclude_filetypes = { 'lspinfo', 'mason', 'lazy', 'fzf', 'qf' },
+	-- 			winopts = {
+	-- 				offset = {
+	-- 					-- NOTE: omit `top`/`left` to center the floating window vertically/horizontally.
+	-- 					-- top = 0,
+	-- 					-- left = 0.17,
+	-- 					width = 300,
+	-- 					height = 0.95,
+	-- 				},
+	-- 				-- NOTE: check :help nvim_open_win() for possible border values.
+	-- 				border = "thicc", -- this is a preset, try it :)
+	-- 			},
+	-- 			presets = {
+	-- 				{
+	-- 					-- NOTE: regex pattern can be used here!
+	-- 					filetypes = { "dapui_.*", "dap-repl" },
+	-- 					winopts = {
+	-- 						offset = { top = 0.02, left = 0.26, width = 0.74, height = 0.25 },
+	-- 					},
+	-- 				},
+	-- 				{
+	-- 					filetypes = { "markdown" },
+	-- 					callbacks = {
+	-- 						function()
+	-- 							vim.wo.wrap = true
+	-- 						end,
+	-- 					},
+	-- 				},
+	-- 			},
+	-- 		})
+	-- 		vim.keymap.set("n", "<leader><CR>", function()
+	-- 			vim.cmd("NeoZoomToggle")
+	-- 		end, { silent = true, nowait = true })
+	-- 	end
+	-- })
 
 	--use('rcarriga/nvim-notify')
 	--use("lukas-reineke/indent-blankline.nvim")

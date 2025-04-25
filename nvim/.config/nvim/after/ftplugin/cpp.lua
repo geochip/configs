@@ -7,5 +7,5 @@ vim.bo.cinoptions = 'l1'
 
 vim.opt.formatoptions:remove({'r', 'o'})
 
-vim.bo.makeprg = './build.sh'
+vim.bo.makeprg = './nob'
 vim.api.nvim_set_keymap('n', '<leader>k', ':make<CR>', { noremap = true })
