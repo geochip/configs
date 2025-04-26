@@ -3,9 +3,6 @@ return require("packer").startup(function(use)
 
    -- LSP and completion stuff
    use("neovim/nvim-lspconfig")
-   -- use("windwp/nvim-autopairs")
-   -- use("hrsh7th/vim-vsnip")
-   -- use("hrsh7th/vim-vsnip-integ")
    -- Completion framefork
    use("hrsh7th/nvim-cmp")
    -- LSP completion source
@@ -116,7 +113,6 @@ return require("packer").startup(function(use)
    use("gruvbox-community/gruvbox")
    use({ "catppuccin/nvim", as = "catppuccin" })
    use("ayu-theme/ayu-vim")
-   --use('vim-airline/vim-airline')
    use({
       "nvim-lualine/lualine.nvim",
       requires = { "nvim-tree/nvim-web-devicons", opt = true },

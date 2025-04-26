@@ -1,84 +1,37 @@
--- PLUGINS SETUP
-local install_path = vim.fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
-
-if vim.fn.empty(vim.fn.glob(install_path)) > 0 then
-   vim.fn.system({ "git", "clone", "https://github.com/wbthomason/packer.nvim", install_path })
-   vim.api.nvim_command("packadd packer.nvim")
-end
-
-require("plugins")
-
-require("sets")
-
 -- GLOBAL VARIABLES
 vim.g.mapleader = " "
 
-vim.g.airline_powerline_fonts = 1
+require("config.lazy")
 
--- COLORSCHEME SETUP
-vim.o.background = "dark"
-vim.o.termguicolors = true
-
-vim.cmd("colorscheme catppuccin-mocha")
-
--- Diagnostics
-vim.cmd("highlight LspDiagnosticsDefaultError guifg=red gui=bold")
-vim.cmd("highlight LspDiagnosticsDefaultWarning guifg=orange gui=bold")
-vim.cmd("highlight LspDiagnosticsDefaultInformation guifg=yellow gui=bold")
-vim.cmd("highlight LspDiagnosticsDefaultHint guifg=green gui=bold")
+require("sets")
 
 -- KEYMAPPINGS
-vim.api.nvim_set_keymap("n", "<leader>y", '"+y', { noremap = true })
-vim.api.nvim_set_keymap("v", "<leader>y", '"+y', { noremap = true })
+vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>")
+vim.keymap.set("n", "<leader>x", "<cmd>.lua<CR>")
+vim.keymap.set("v", "<leader>x", "<cmd>lua<CR>")
 
-vim.api.nvim_set_keymap("n", "<leader>u", ":nohlsearch<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>rt", [[mz:%s/ \+$//g<CR>`z]], { noremap = true })
+vim.keymap.set("n", "<leader>d", '<cmd>lua vim.diagnostic.open_float({border="rounded"})<CR>', { noremap = true })
 
-vim.api.nvim_set_keymap("n", "<leader>+", ":vertical resize +5<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<leader>-", ":vertical resize -5<CR>", { noremap = true })
+vim.keymap.set("n", "<M-j>", "<cmd>cnext<CR>", { noremap = true })
+vim.keymap.set("n", "<M-k>", "<cmd>cprev<CR>", { noremap = true })
 
-vim.api.nvim_set_keymap("v", "J", [[:m '>+1<CR>gv=gv]], { noremap = true })
-vim.api.nvim_set_keymap("v", "K", [[:m '<-2<CR>gv=gv]], { noremap = true })
+vim.keymap.set("n", "-", "<cmd>Oil<CR>", { noremap = true })
 
-vim.api.nvim_set_keymap("n", "n", "nzzzv", { noremap = true })
-vim.api.nvim_set_keymap("n", "N", "Nzzzv", { noremap = true })
-vim.api.nvim_set_keymap("n", "J", "mzJ`z", { noremap = true })
+vim.keymap.set("n", "<leader>u", "<cmd>nohlsearch<CR>", { noremap = true })
 
-vim.api.nvim_set_keymap("n", "<leader>f", ':lua vim.diagnostic.open_float({border="rounded"})<CR>', { noremap = true })
+vim.keymap.set("v", "J", [[:m '>+1<CR>gv=gv]], { noremap = true })
+vim.keymap.set("v", "K", [[:m '<-2<CR>gv=gv]], { noremap = true })
 
--- Buffers
-vim.api.nvim_set_keymap("n", "<C-n>", ":bnext<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<C-p>", ":bprevious<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "<M-d>", ":bdelete<CR>", { noremap = true })
+vim.keymap.set("n", "n", "nzzzv", { noremap = true })
+vim.keymap.set("n", "N", "Nzzzv", { noremap = true })
+vim.keymap.set("n", "J", "mzJ`z", { noremap = true })
 
--- Obsidian
-vim.api.nvim_set_keymap("n", "<leader>oq", ":ObsidianQuickSwitch<CR>", { noremap = true })
-
--- NERDCommenter
-vim.api.nvim_set_keymap("n", "<C-_>", "<Plug>NERDCommenterToggle", { noremap = true })
-vim.api.nvim_set_keymap("x", "<C-_>", "<Plug>NERDCommenterToggle", { noremap = true })
-
--- Netrw
-vim.api.nvim_set_keymap("n", "<leader>e", ":Explore<CR>", { noremap = true })
-vim.api.nvim_set_keymap("n", "-", "<CMD>Oil<CR>", { noremap = true })
-
--- Python formatting
-vim.api.nvim_set_keymap("n", "<leader>b", ":!black -q -l 79 %<CR>", { noremap = true })
-
--- Neogit
-vim.api.nvim_set_keymap("n", "<leader>n", ":Neogit<CR>", { noremap = true })
-
-vim.api.nvim_set_keymap(
+vim.keymap.set(
    "n",
    "<leader>s",
    "iSigned-off-by: Alexander Stepchenko <geochip@altlinux.org><ESC>",
    { noremap = true }
 )
-
-vim.api.nvim_set_keymap("", "<leader>dor", ":diffget RE<CR>", { noremap = true })
-
--- Man
--- vim.keymap.set("n", "K", ":tab Man<CR>", { noremap = true })
 
 -- AUTOCOMMANDS
 vim.cmd([[
@@ -87,10 +40,20 @@ vim.cmd([[
         autocmd BufNewFile,BufRead /dev/shm/gopass* setlocal noswapfile nobackup noundofile shada=""
         autocmd BufWritePre * %s/\s\+$//e
         autocmd BufWritePost plugins.lua source <afile> | PackerCompile
-        autocmd TextYankPost * lua vim.highlight.on_yank({ on_visual = false })
         autocmd BufRead *.ovf set filetype=xml
     augroup END
 ]])
 
--- PLUGINS CONFIGS
-require("geochip")
+vim.api.nvim_create_autocmd("TextYankPost", {
+  desc = "Highlight when yanking (copying) text",
+  group = vim.api.nvim_create_augroup("geochip-hl-on-yank", { clear = true }),
+  callback = function()
+    vim.hl.on_yank()
+  end
+})
+
+-- Diagnostics
+-- vim.cmd("highlight LspDiagnosticsDefaultError guifg=red gui=bold")
+-- vim.cmd("highlight LspDiagnosticsDefaultWarning guifg=orange gui=bold")
+-- vim.cmd("highlight LspDiagnosticsDefaultInformation guifg=yellow gui=bold")
+-- vim.cmd("highlight LspDiagnosticsDefaultHint guifg=green gui=bold")
