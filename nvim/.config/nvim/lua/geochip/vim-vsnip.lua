@@ -20,4 +20,3 @@ vim.api.nvim_set_keymap('n', 's', '<Plug>(vsnip-select-text)', {})
 vim.api.nvim_set_keymap('x', 's', '<Plug>(vsnip-select-text)', {})
 vim.api.nvim_set_keymap('n', 'S', '<Plug>(vsnip-cut-text)', {})
 vim.api.nvim_set_keymap('x', 'S', '<Plug>(vsnip-cut-text)', {})
-
