@@ -28,6 +28,7 @@ return {
         "lua_ls",
         "rust_analyzer",
         "clangd",
+        "ts_ls",
       })
 
       vim.keymap.set({ "n", "v" }, "<leader>lf", function() vim.lsp.buf.format() end)
