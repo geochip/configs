@@ -2,8 +2,7 @@
 vim.g.mapleader = " "
 
 require("config.lazy")
-
-require("sets")
+require("config.sets")
 
 -- KEYMAPPINGS
 vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>")
