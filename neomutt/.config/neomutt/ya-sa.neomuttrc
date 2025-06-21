@@ -1,0 +1,14 @@
+set from = "geochip@altlinux.org"
+set realname = "Alexander Stepchenko"
+# source "gpg2 --decrypt --quiet ~/.config/neomutt/passwords.gpg |"
+set sendmail = "msmtp --account basealt"
+
+set folder = "~/.local/share/email/ya-sa"
+set spoolfile = "+INBOX"
+set postponed = "+Drafts"
+set record = "+Sent"
+set trash = "+Trash"
+mailboxes =INBOX =Drafts =Sent =Trash =lkml =devel =girar-acl =girar-builder =girar-task-approve =girar-task-disapprove
+
+set header_cache = "$HOME/.cache/neomutt/ya-sa/headers"
+set message_cachedir = "$HOME/.cache/neomutt/ya-sa/bodies"

@@ -1,0 +1,16 @@
+set from = "geochip@altlinux.org"
+set realname = "Alexander Stepchenko"
+# set imap_user = "stepchenkoas"
+# set smtp_url = "smtp://stepchenkoas@air.basealt.ru:25"
+# source "gpg2 --decrypt --quiet ~/.config/neomutt/passwords.gpg |"
+set sendmail = "msmtp --account basealt"
+
+set folder = "~/.local/share/email/basealt"
+set spoolfile = "+INBOX"
+set postponed = "+Drafts"
+set record = "+Sent"
+set trash = "+Trash"
+mailboxes =INBOX =Drafts =Sent =Trash =archives
+
+set header_cache = "$HOME/.cache/neomutt/basealt/headers"
+set message_cachedir = "$HOME/.cache/neomutt/basealt/bodies"

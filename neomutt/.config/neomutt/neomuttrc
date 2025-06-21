@@ -1,0 +1,65 @@
+set ssl_starttls = yes
+set ssl_force_tls = yes
+
+set sidebar_visible
+set sidebar_width = 20
+# set sidebar_short_path
+# set sidebar_folder_indent
+# set sidebar_format = "%B %* [%?N?%N / ?%S]"
+set sidebar_format = "%B%<F? [%F]>%* %<N?%N/>%S"
+set mail_check_stats
+bind index,pager \CK sidebar-prev
+bind index,pager \CJ sidebar-next
+bind index,pager \CE sidebar-open
+bind index,pager B sidebar-toggle-visible
+
+source "~/.config/neomutt/alt.neomuttrc"
+# source "~/.config/neomutt/ya-sa.neomuttrc"
+
+unset use_domain
+set use_from = yes
+
+set mbox_type = "Maildir"
+
+set certificate_file = "$HOME/.cache/neomutt/certificates"
+
+set pager_stop
+set edit_headers
+set mail_check = 30
+set imap_keepalive = 900
+set charset = "utf-8"
+set send_charset="us-ascii:utf-8"
+
+bind attach,index,pager \CD next-page
+bind attach,index,pager \CU previous-page
+
+
+bind index j next-entry
+bind index k previous-entry
+bind pager j next-line
+bind pager k previous-line
+bind pager g top
+bind pager G bottom
+bind attach,index g first-entry
+bind attach,index G last-entry
+
+# color status blue default
+source ~/.config/neomutt/colors.neomuttrc
+
+set pgp_default_key = 545302E3ABD56797B34A2A5B24BACDDEB4461E94
+set crypt_use_gpgme = yes
+set crypt_autosign = yes
+set crypt_protected_headers_write = yes
+set crypt_replysign = yes
+set crypt_replyencrypt = yes
+set crypt_replysignencrypted = yes
+set crypt_verify_sig = yes
+set crypt_opportunistic_encrypt = no
+auto_view application/pgp-encrypted
+
+bind index,pager a noop
+macro index,pager a1 '<enter-command>source "~/.config/neomutt/alt.neomuttrc"<enter><change-folder>!<enter>;<check-stats>' "switch to basealt"
+macro index,pager a2 '<enter-command>source "~/.config/neomutt/ya-sa.neomuttrc"<enter><change-folder>!<enter>;<check-stats>' "switch to ya-sa"
+
+macro index S "<shell-escape>mbsync --all<enter><shell-escape>notmuch new<enter>" "sync email"
+macro index \Cf "<enter-command>unset wait_key<enter><shell-escape>read -p 'Enter a search term to find with notmuch: ' x; echo \$x >~/.cache/mutt_terms<enter><limit>~i \"\`notmuch search --output=messages \$(cat ~/.cache/mutt_terms) | head -n 600 | perl -le '@a=<>;s/\^id:// for@a;$,=\"|\";print@a' | perl -le '@a=<>; chomp@a; s/\\+/\\\\+/ for@a;print@a' \`\"<enter>" "show only messages matching a notmuch pattern"
