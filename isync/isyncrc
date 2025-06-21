@@ -1,0 +1,47 @@
+IMAPAccount basealt
+Host air.basealt.ru
+User stepchenkoas
+PassCmd "gpg2 --decrypt --quiet ~/passwords/basealt.gpg"
+TLSType IMAPS
+CertificateFile /usr/share/pki/ca-trust-source/ca-bundle.trust.p11-kit
+
+IMAPStore basealt-remote
+Account basealt
+
+MaildirStore basealt-local
+Subfolders Verbatim
+Path ~/.local/share/email/basealt/
+INBOX ~/.local/share/email/basealt/INBOX
+Flatten .
+
+Channel basealt
+Far :basealt-remote:
+Near :basealt-local:
+Patterns *
+Create Both
+Expunge Both
+SyncState *
+
+IMAPAccount ya-sa
+Host imap.yandex.ru
+User stepchenko.alex
+PassCmd "gpg2 --decrypt --quiet ~/passwords/ya-sa.gpg"
+TLSType IMAPS
+CertificateFile /usr/share/pki/ca-trust-source/ca-bundle.trust.p11-kit
+
+IMAPStore ya-sa-remote
+Account ya-sa
+
+MaildirStore ya-sa-local
+Subfolders Verbatim
+Path ~/.local/share/email/ya-sa/
+INBOX ~/.local/share/email/ya-sa/INBOX
+Flatten .
+
+Channel ya-sa
+Far :ya-sa-remote:
+Near :ya-sa-local:
+Patterns *
+Create Both
+Expunge Both
+SyncState *
