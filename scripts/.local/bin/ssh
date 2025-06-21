@@ -1,0 +1,17 @@
+#!/bin/sh
+
+set -euo pipefail
+
+case "$*" in
+	'gyle task show --help' | 'gyle task show '*[0-9]* | \
+	'gyle task run --help' | 'gyle task run '*[0-9]* | \
+	'gyle task add --help' | 'gyle task add '[0-9]*)
+		/usr/bin/ssh "$@"
+		;;
+	'gyle task show'* | 'gyle task run'* | 'gyle task add'*)
+		echo "nope, specify task id"
+		;;
+	*)
+		/usr/bin/ssh "$@"
+		;;
+esac

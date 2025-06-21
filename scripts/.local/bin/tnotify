@@ -1,0 +1,18 @@
+#!/bin/sh
+
+set -eu
+
+COMMAND="$*"
+
+at_err()
+{
+	mpv -really-quiet /usr/share/sounds/freedesktop/stereo/dialog-error.oga &
+	notify-send -a "Failure" "$COMMAND"
+}
+
+trap at_err ERR
+
+$COMMAND
+
+mpv -really-quiet /usr/share/sounds/freedesktop/stereo/complete.oga &
+notify-send -a "Success" "$COMMAND"

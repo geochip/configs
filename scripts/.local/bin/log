@@ -1,0 +1,19 @@
+#!/bin/bash
+
+log_prefix="${1:-log}"
+log_dir="${2:-.}"
+
+existing_logs=0
+
+for file in "$log_dir"/"$log_prefix".[0-9][0-9].[0-9]*-[0-9]*-[0-9]*_[0-9]*-[0-9]*-[0-9]*-[0-9]*; do
+    if [[ -e "$file" ]]; then
+        ((existing_logs++))
+    fi
+done
+
+timestamp=$(date +"%Y-%m-%d_%H-%M-%S-%N")
+
+next_number=$(printf "%02d" $((existing_logs + 1)))
+log_filename="${log_prefix}.${next_number}.${timestamp}"
+
+tee "$log_dir/$log_filename"
