@@ -1,31 +1,62 @@
 #!/usr/bin/python3
 
+import argparse
 import fileinput
 import json
+import sys
 from datetime import datetime
 
 import jwt
 import rich
 
-encoded_token_string = ""
-for line in fileinput.input():
-    encoded_token_string += line
 
-header = jwt.get_unverified_header(encoded_token_string.strip())
+def parse_args():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+            "file",
+            nargs="?",
+            type=argparse.FileType("r"),
+            default=sys.stdin
+    )
+    parser.add_argument("-e", "--expired", action="store_true")
+    return parser.parse_args()
 
-decoded_token = jwt.decode(
-    encoded_token_string.strip(), options={"verify_signature": False}
-)
 
-for date_obj in ("exp", "iat", "auth_time"):
-    if date_obj in decoded_token.keys():
-        decoded_token[f"{date_obj}_original"] = decoded_token[date_obj]
-        decoded_token[f"{date_obj}"] = datetime.fromtimestamp(
-            decoded_token[date_obj]
-        ).strftime("%Y-%m-%d %H:%M:%S")
+def main():
+    args = parse_args()
 
-json_string = json.dumps(header)
-rich.print_json(json_string)
+    encoded_token_string = ""
+    for line in args.file:
+        encoded_token_string += line
 
-json_string = json.dumps(decoded_token)
-rich.print_json(json_string)
+    header = jwt.get_unverified_header(encoded_token_string.strip())
+
+    decoded_token = jwt.decode(
+        encoded_token_string.strip(), options={"verify_signature": False}
+    )
+
+    if args.expired:
+        if "exp" not in decoded_token.keys():
+            sys.exit(1)
+
+        if datetime.fromtimestamp(decoded_token["exp"]) < datetime.now():
+            sys.exit(0)
+        else:
+            sys.exit(1)
+
+    for date_obj in ("exp", "iat", "auth_time"):
+        if date_obj in decoded_token.keys():
+            decoded_token[f"{date_obj}_original"] = decoded_token[date_obj]
+            decoded_token[f"{date_obj}"] = datetime.fromtimestamp(
+                decoded_token[date_obj]
+            ).strftime("%Y-%m-%d %H:%M:%S")
+
+    json_string = json.dumps(header)
+    rich.print_json(json_string)
+
+    json_string = json.dumps(decoded_token)
+    rich.print_json(json_string)
+
+
+if __name__ == "__main__":
+    main()

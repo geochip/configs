@@ -1,14 +1,10 @@
 {
-    "modules-left": ["hyprland/workspaces"],
+    "modules-left": ["niri/workspaces"],
     "modules-center": ["clock"],
-    "modules-right": ["tray", "idle_inhibitor", "hyprland/language","custom/scratchpad-indicator", "pulseaudio", "network", "battery","custom/power"],
+    "modules-right": ["tray", "niri/language", "pulseaudio", "network", "battery", "custom/power"],
 
-    "idle_inhibitor": {
-        "format": "{icon}",
-        "format-icons": {
-            "activated": "",
-            "deactivated": "",
-        },
+    "tray": {
+        "spacing": 10,
     },
     "network": {
         // "interface": "wlp2*", // (Optional) To force the use of this interface
@@ -40,9 +36,8 @@
     },
     "clock": {
         "interval":1,
-        "format": "{:%H:%M:%S}",
+        "format": "{:%Y-%m-%d %H:%M:%S}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}",
     },
     "custom/power": {
         "format": "  ",
