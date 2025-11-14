@@ -3,3 +3,5 @@ vim.bo.tabstop = indent
 vim.bo.softtabstop = indent
 vim.bo.shiftwidth = indent
 vim.bo.expandtab = false
+
+vim.opt.formatoptions:remove({'r', 'o'})

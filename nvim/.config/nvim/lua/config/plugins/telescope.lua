@@ -8,11 +8,11 @@ return {
     },
     config = function()
       require("telescope").setup({
-        pickers = {
-          find_files = {
-            theme = "ivy"
-          }
-        },
+        -- pickers = {
+        --   find_files = {
+        --     theme = "ivy"
+        --   }
+        -- },
         extensions = {
           fzf = {}
         },
@@ -22,6 +22,8 @@ return {
 
       vim.keymap.set("n", "<leader>fh", require("telescope.builtin").help_tags)
       vim.keymap.set("n", "<leader>fd", require("telescope.builtin").find_files)
+      vim.keymap.set("n", "<leader>fs", require("telescope.builtin").lsp_workspace_symbols)
+      vim.keymap.set("n", "<leader>fk", require("telescope.builtin").keymaps)
 
       vim.keymap.set("n", "<leader>en", function()
         require("telescope.builtin").find_files({

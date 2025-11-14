@@ -3,6 +3,9 @@ return {
     "lewis6991/gitsigns.nvim",
     config = function()
       require("gitsigns").setup({
+        current_line_blame_opts = {
+          delay = 100,
+        },
         on_attach = function(bufnr)
           local gitsigns = require("gitsigns")
 
@@ -30,19 +33,19 @@ return {
           end)
 
           -- Actions
-          map("n", "<leader>hn", ":Gitsigns next_hunk<CR>")
-          map("n", "<leader>hp", ":Gitsigns prev_hunk<CR>")
-          map("n", "<leader>hs", ":Gitsigns stage_hunk<CR>")
-          map("n", "<leader>hr", ":Gitsigns reset_hunk<CR>")
-          map("v", "<leader>hs", [[:lua require('gitsigns').stage_hunk { vim.fn.line('.'), vim.fn.line('v') }<CR>]])
-          map("v", "<leader>hr", [[:lua require('gitsigns').reset_hunk { vim.fn.line('.'), vim.fn.line('v') }<CR>]])
-          map("n", "<leader>hS", ":Gitsigns stage_buffer<CR>")
-          map("n", "<leader>hu", ":Gitsigns undo_stage_hunk<CR>")
-          map("n", "<leader>hR", ":Gitsigns reset_buffer<CR>")
-          map("n", "<leader>hP", ":Gitsigns preview_hunk<CR>")
-          map("n", "<leader>hb", [[:lua require('gitsigns').blame_line { full = true }<CR>]])
-          map("n", "<leader>tb", ":Gitsigns toggle_current_line_blame<CR>")
-          map("n", "<leader>td", ":Gitsigns toggle_deleted<CR>")
+          map("n", "<leader>hn", "<cmd>Gitsigns next_hunk<CR>")
+          map("n", "<leader>hp", "<cmd>Gitsigns prev_hunk<CR>")
+          map("n", "<leader>hs", "<cmd>Gitsigns stage_hunk<CR>")
+          map("n", "<leader>hr", "<cmd>Gitsigns reset_hunk<CR>")
+          map("v", "<leader>hs", [[<cmd>lua require('gitsigns').stage_hunk { vim.fn.line('.'), vim.fn.line('v') }<CR>]])
+          map("v", "<leader>hr", [[<cmd>lua require('gitsigns').reset_hunk { vim.fn.line('.'), vim.fn.line('v') }<CR>]])
+          map("n", "<leader>hS", "<cmd>Gitsigns stage_buffer<CR>")
+          map("n", "<leader>hu", "<cmd>Gitsigns undo_stage_hunk<CR>")
+          map("n", "<leader>hR", "<cmd>Gitsigns reset_buffer<CR>")
+          map("n", "<leader>hP", "<cmd>Gitsigns preview_hunk<CR>")
+          map("n", "<leader>hb", [[<cmd>lua require('gitsigns').blame_line { full = true }<CR>]])
+          map("n", "<leader>tb", "<cmd>Gitsigns toggle_current_line_blame<CR>")
+          map("n", "<leader>td", "<cmd>Gitsigns toggle_deleted<CR>")
 
           -- Text object
           map({ "o", "x" }, "ih", ":<C-U>Gitsigns select_hunk<CR>")

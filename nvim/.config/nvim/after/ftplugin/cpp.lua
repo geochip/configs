@@ -1,8 +1,8 @@
-local indent = 8
+local indent = 4
 vim.bo.tabstop = indent
 vim.bo.softtabstop = indent
 vim.bo.shiftwidth = indent
-vim.bo.expandtab = false
+vim.bo.expandtab = true
 vim.bo.cinoptions = 'l1'
 
 vim.opt.formatoptions:remove({'r', 'o'})

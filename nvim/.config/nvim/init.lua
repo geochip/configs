@@ -5,7 +5,9 @@ require("config.lazy")
 require("config.sets")
 
 -- KEYMAPPINGS
-vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>")
+vim.keymap.set("n", "<leader>2", "<cmd>w<CR>")
+
+-- vim.keymap.set("n", "<leader><leader>x", "<cmd>source %<CR>")
 vim.keymap.set("n", "<leader>x", "<cmd>.lua<CR>")
 vim.keymap.set("v", "<leader>x", "<cmd>lua<CR>")
 
@@ -31,6 +33,8 @@ vim.keymap.set(
    "iSigned-off-by: Alexander Stepchenko <geochip@altlinux.org><ESC>",
    { noremap = true }
 )
+
+vim.keymap.set("n", "<leader>`", "<cmd>LspClangdSwitchSourceHeader<CR>")
 
 -- AUTOCOMMANDS
 vim.cmd([[

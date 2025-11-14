@@ -5,5 +5,5 @@ vim.bo.shiftwidth = indent
 vim.bo.expandtab = false
 vim.bo.cinoptions = 'l1'
 
-vim.bo.makeprg = './build.sh'
+vim.bo.makeprg = './nob'
 vim.api.nvim_set_keymap('n', '<leader>k', ':make<CR>', { noremap = true })

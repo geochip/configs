@@ -28,6 +28,9 @@ return {
         "lua_ls",
         "rust_analyzer",
         "clangd",
+        "gopls",
+        "pyright",
+        "bashls",
         "ts_ls",
       })
 
