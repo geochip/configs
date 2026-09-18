@@ -10,7 +10,9 @@ set spoolfile = "+INBOX"
 set postponed = "+Drafts"
 set record = "+Sent"
 set trash = "+Trash"
-mailboxes =INBOX =Drafts =Sent =Trash =archives
+
+unmailboxes *
+mailboxes =INBOX =Drafts =Sent =Trash =archives =cb =yadro
 
 set header_cache = "$HOME/.cache/neomutt/basealt/headers"
 set message_cachedir = "$HOME/.cache/neomutt/basealt/bodies"

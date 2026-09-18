@@ -8,6 +8,8 @@ gsettings set org.gnome.desktop.interface enable-hot-corners 'false'
 gsettings set org.gnome.desktop.interface enable-animations 'false'
 gsettings set org.gnome.desktop.interface show-battery-percentage 'true'
 
+gsettings set org.gtk.Settings.FileChooser sort-directories-first 'true'
+
 gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('xkb', 'ru')]"
 gsettings set org.gnome.desktop.input-sources xkb-options "['grp:caps_toggle']"
 

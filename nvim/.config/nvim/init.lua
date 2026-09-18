@@ -1,8 +1,8 @@
 -- GLOBAL VARIABLES
 vim.g.mapleader = " "
 
-require("config.lazy")
 require("config.sets")
+require("config.lazy")
 
 -- KEYMAPPINGS
 vim.keymap.set("n", "<leader>2", "<cmd>w<CR>")
@@ -42,17 +42,23 @@ vim.cmd([[
         autocmd!
         autocmd BufNewFile,BufRead /dev/shm/gopass* setlocal noswapfile nobackup noundofile shada=""
         autocmd BufWritePre * %s/\s\+$//e
-        autocmd BufWritePost plugins.lua source <afile> | PackerCompile
         autocmd BufRead *.ovf set filetype=xml
     augroup END
 ]])
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-  desc = "Highlight when yanking (copying) text",
-  group = vim.api.nvim_create_augroup("geochip-hl-on-yank", { clear = true }),
-  callback = function()
-    vim.hl.on_yank()
-  end
+	desc = "Highlight when yanking (copying) text",
+	group = vim.api.nvim_create_augroup("geochip-hl-on-yank", { clear = true }),
+	callback = function()
+		vim.hl.on_yank()
+	end,
+})
+
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = { "go", "python" },
+	callback = function()
+		vim.treesitter.start()
+	end,
 })
 
 -- Diagnostics

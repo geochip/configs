@@ -29,9 +29,13 @@ return {
         "rust_analyzer",
         "clangd",
         "gopls",
+        "zls",
         "pyright",
         "bashls",
         "ts_ls",
+        "rpmspec",
+        "ty",
+        "ols",
       })
 
       vim.keymap.set({ "n", "v" }, "<leader>lf", function() vim.lsp.buf.format() end)

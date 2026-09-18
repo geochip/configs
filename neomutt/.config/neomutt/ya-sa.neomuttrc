@@ -8,7 +8,9 @@ set spoolfile = "+INBOX"
 set postponed = "+Drafts"
 set record = "+Sent"
 set trash = "+Trash"
-mailboxes =INBOX =Drafts =Sent =Trash =lkml =devel =girar-acl =girar-builder =girar-task-approve =girar-task-disapprove
+
+unmailboxes *
+mailboxes =INBOX =Drafts =Archives =Sent =Trash =devel =devel-kernel =girar-acl =girar-builder =girar-task-approve =girar-task-disapprove
 
 set header_cache = "$HOME/.cache/neomutt/ya-sa/headers"
 set message_cachedir = "$HOME/.cache/neomutt/ya-sa/bodies"

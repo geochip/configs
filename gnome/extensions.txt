@@ -1,3 +1,5 @@
 https://extensions.gnome.org/extension/6358/disable-workspace-switcher-overlay/
 https://extensions.gnome.org/extension/615/appindicator-support/
 https://extensions.gnome.org/extension/7373/touchpad-switcher/
+https://extensions.gnome.org/extension/1720/weeks-start-on-monday-again/
+https://extensions.gnome.org/extension/8189/power-off-options/

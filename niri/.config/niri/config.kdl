@@ -3,9 +3,12 @@
 // Check the wiki for a full description of the configuration:
 // https://yalter.github.io/niri/Configuration:-Introduction
 
-workspace "browser"
-workspace "comm"
-workspace "term"
+workspace "1"
+workspace "2"
+workspace "3"
+workspace "4"
+workspace "5"
+workspace "6"
 
 // Input device configuration.
 // Find the full list of options on the wiki:
@@ -49,8 +52,8 @@ input {
     mouse {
         // off
         // natural-scroll
+        accel-profile "flat"
         // accel-speed 0.2
-        // accel-profile "flat"
         // scroll-method "no-scroll"
     }
 
@@ -110,12 +113,20 @@ input {
     position x=1280 y=0
 }
 
+// External monitor. Niri automatically disables and enables the embedded
+// eDP-1 panel when the laptop lid is closed and opened.
+output "PNP(XMI) P27FBB-RA 5378200081686" {
+    mode "1920x1080@100.000"
+    scale 1
+    focus-at-startup
+}
+
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://yalter.github.io/niri/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    gaps 0
+    gaps 10
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -160,7 +171,7 @@ layout {
     // You can change how the focus ring looks.
     focus-ring {
         // Uncomment this line to disable the focus ring.
-        // off
+        off
 
         // How many logical pixels the ring extends out from the windows.
         width 1
@@ -272,7 +283,15 @@ layout {
 // See the binds section below for more spawn examples.
 
 // This line starts waybar, a commonly used bar for Wayland compositors.
-spawn-at-startup "waybar"
+// spawn-at-startup "waybar"
+// ALT's quickshell binary is setgid chkpwd, which prevents Qt from using the
+// user D-Bus. Suppress that privilege transition; Hyprlock handles locking.
+spawn-at-startup "setpriv" "--no-new-privs" "qs" "-c" "noctalia-shell"
+
+debug {
+    // Allow actions from notification popups to activate their applications.
+    honor-xdg-activation-with-invalid-serial
+}
 
 // To run a shell command (with variables, pipes, etc.), use spawn-sh-at-startup:
 // spawn-sh-at-startup "qs -c ~/source/qs/MyAwesomeShell"
@@ -305,7 +324,7 @@ animations {
     off
 
     // Slow down all animations by this factor. Values below 1 speed them up instead.
-    // slowdown 3.0
+     slowdown 0.7
 }
 
 // Window rules let you adjust behavior for individual windows.
@@ -346,11 +365,26 @@ window-rule {
     // block-out-from "screencast"
 }
 
+window-rule {
+    match app-id=r#"^com\.mitchellh\.ghostty$"#
+    open-maximized-to-edges true
+}
+
 // Example: enable rounded corners for all windows.
 // (This example rule is commented out with a "/-" in front.)
 /-window-rule {
     geometry-corner-radius 12
     clip-to-geometry true
+}
+
+recent-windows {
+    binds {
+        Alt+Tab       { next-window     scope="workspace"; }
+        Alt+Shift+Tab { previous-window scope="workspace"; }
+
+        Mod+Tab       { next-window     scope="workspace"; }
+        Mod+Shift+Tab { previous-window scope="workspace"; }
+    }
 }
 
 binds {
@@ -366,13 +400,18 @@ binds {
 
     // Mod-Shift-/, which is usually the same as Mod-?,
     // shows a list of important hotkeys.
-    Mod+Shift+Slash { show-hotkey-overlay; }
+    // Mod+Shift+Slash { show-hotkey-overlay; }
+    Mod+Shift+Slash hotkey-overlay-title="Open a hotkey overlay" { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "plugin:keybind-cheatsheet" "toggle"; }
 
     // Suggested binds for running programs: terminal, app launcher, screen locker.
-    Mod+T hotkey-overlay-title="Open a Terminal: kitty" { spawn "kitty"; }
-    Mod+R hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+    Mod+T hotkey-overlay-title="Open a Terminal: ghostty" { spawn "ghostty"; }
+    // Mod+R hotkey-overlay-title="Run an Application: fuzzel" { spawn "fuzzel"; }
+    Mod+R hotkey-overlay-title="Run an Application: noctalia-shell luancher" { spawn "qs" "-c" "noctalia-shell" "ipc" "call" "launcher" "toggle"; }
     Mod+B hotkey-overlay-title="Open a Browser: zen" { spawn "flatpak" "run" "--command=launch-script.sh" "--file-forwarding" "app.zen_browser.zen"; }
-    Super+Alt+L hotkey-overlay-title="Lock the Screen: swaylock" { spawn "swaylock" "-i" "/home/geochip/dev/wallpapers/0001.jpg"; }
+    // Launch Hyprlock through Niri so ALT's chkpwd setgid permission is retained.
+    Mod+Alt+L hotkey-overlay-title="Lock the Screen: hyprlock" { spawn "hyprlock"; }
+
+    Mod+G hotkey-overlay-title="Open a File Browser: nautilus" { spawn "nautilus"; }
 
     // Use spawn-sh to run a shell command. Do this if you need pipes, multiple commands, etc.
     // Note: the entire command goes as a single argument. It's passed verbatim to `sh -c`.
@@ -382,8 +421,8 @@ binds {
     // Example volume keys mappings for PipeWire & WirePlumber.
     // The allow-when-locked=true property makes them work even when the session is locked.
     // Using spawn-sh allows to pass multiple arguments together with the command.
-    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+"; }
-    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
+    XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05+"; }
+    XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.05-"; }
     XF86AudioMute        allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
@@ -557,7 +596,7 @@ binds {
     Mod+Shift+R { switch-preset-window-height; }
     Mod+Ctrl+R { reset-window-height; }
     Mod+F { maximize-column; }
-    // Mod+Ctrl+F { maximize-window-to-edges; }
+    Mod+M { maximize-window-to-edges; }
     Mod+Ctrl+F { toggle-windowed-fullscreen; }
     Mod+Shift+F { fullscreen-window; }
 
@@ -578,12 +617,12 @@ binds {
     // * adjust width as a percentage of screen width: "-10%" or "+10%"
     // Pixel sizes use logical, or scaled, pixels. I.e. on an output with scale 2.0,
     // set-column-width "100" will make the column occupy 200 physical screen pixels.
-    Mod+Minus { set-column-width "-10%"; }
-    Mod+Equal { set-column-width "+10%"; }
+    Mod+Minus { set-column-width "-5%"; }
+    Mod+Equal { set-column-width "+5%"; }
 
     // Finer height adjustments when in column with other windows.
-    Mod+Shift+Minus { set-window-height "-10%"; }
-    Mod+Shift+Equal { set-window-height "+10%"; }
+    Mod+Shift+Minus { set-window-height "-5%"; }
+    Mod+Shift+Equal { set-window-height "+5%"; }
 
     // Move the focused window between the floating and the tiling layout.
     Mod+V       { toggle-window-floating; }
@@ -628,4 +667,10 @@ binds {
 cursor {
     xcursor-theme "rose-pine"
     xcursor-size 24
+}
+
+gestures {
+    hot-corners {
+        off
+    }
 }

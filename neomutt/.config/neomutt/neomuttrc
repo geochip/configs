@@ -2,7 +2,7 @@ set ssl_starttls = yes
 set ssl_force_tls = yes
 
 set sidebar_visible
-set sidebar_width = 20
+set sidebar_width = 30
 # set sidebar_short_path
 # set sidebar_folder_indent
 # set sidebar_format = "%B %* [%?N?%N / ?%S]"
